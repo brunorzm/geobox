@@ -1,6 +1,6 @@
 Package: geobox
-Title: geobox
-Version: 0.0.9000
+Title: geobox - Reactive Regression Geo-Modelling
+Version: 0.0.0.9000
 Authors@R: person('Bruno', 'Rezende', email = 'brunorezendem@hotmail.com', role = c('cre', 'aut'))
 Description: Reactive Regression Modelling. Spatial Analysis Included.
 License: MIT + file LICENSE
