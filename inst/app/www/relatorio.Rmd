@@ -1,0 +1,329 @@
+---
+title: "Relatório Dinâmico"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+runtime: shiny
+params:
+  rzm: NA
+  prop: NA
+  model: NA
+  metrics: NA
+---
+
+
+
+```{r}
+knitr::opts_chunk$set(eval = !is.na(params$model))
+```
+
+
+
+Dados Iniciais
+=================================
+
+
+Column
+---------------------------------
+###
+```{r, eval = TRUE}
+DT::datatable(params$rzm, rownames = FALSE, filter = "top")
+
+```
+
+
+Column
+---------------------------------
+###
+```{r, eval = inherits(params$rzm, "sf")}
+
+anlysis_map(params$rzm, !params$prop$obs_disabled, params$prop, cat = NULL)
+
+```
+
+
+
+
+Indices Gerais
+=================================
+
+
+Column {data-width=150}
+---------------------------------
+
+
+###
+```{r}
+
+flexdashboard::valueBox(
+      value = sum(!params$prop$obs_disabled ),
+      caption = paste("Dados Utilizados de", params$prop$n_obs),
+      icon = shiny::icon("database")
+    )
+  
+
+```
+
+
+###
+```{r}
+
+if (is.na(params$model)) {return()} else {
+
+flexdashboard::valueBox(
+      value = sum(params$prop$var_enabled),
+      caption = "Variáveis Utilizadas",
+      icon = shiny::icon("list")
+    )
+}
+
+```
+
+
+
+###
+```{r}
+
+
+flexdashboard::valueBox(
+      value = params$model$df.residual,
+      caption = "Graus de Liberdade",
+      icon = shiny::icon("info")
+    )
+
+```
+
+
+
+### 
+```{r}
+
+ f <- summary(params$model)$fstatistic
+
+    va <- pf(f[1], f[2], f[3], lower.tail = FALSE)  %>% signif(4)
+
+    flexdashboard::valueBox(
+      value = va,
+      caption ="F-Snedecor",
+      icon = shiny::icon("tachometer-alt") )
+
+
+```
+
+Column {data-width=250}
+----------------------------------
+
+### Coeficiente de Correlação
+```{r}
+
+flexdashboard::gauge(
+      value = round(params$metrics$r_model_correlation, 4),
+      min = 0,
+      max = 1,
+      label = "Correlação (R)",
+      sectors = flexdashboard::gaugeSectors(
+        success = c(0.6, 1),
+        warning = c(0.4, 0.6),
+        danger = c(0, 0.4)
+      )
+    )
+
+```
+
+
+### Coeficiente de Determinação Modelo
+```{r}
+
+flexdashboard::gauge(
+      value = round(params$metrics$r2_res_trns_scale, 4),
+      min = 0,
+      max = 1,
+      label = "Determinação Mod. (R\u00B2)",
+      sectors = flexdashboard::gaugeSectors(
+        success = c(0.6, 1),
+        warning = c(0.4, 0.6),
+        danger = c(0, 0.4)
+      )
+    )
+
+
+```
+
+
+### Coeficiente de Determinação Estimativa
+```{r}
+flexdashboard::gauge(
+      value = round(params$metrics$r2_res_natural_scale, 4),
+      min = 0,
+      max = 1,
+      label = "Det. Esti.(R\u00B2 esti.)",
+      sectors = flexdashboard::gaugeSectors(
+        success = c(0.6, 1),
+        warning = c(0.4, 0.6),
+        danger = c(0, 0.4)
+      )
+    )
+
+
+```
+
+
+### Coeficiente de Determinação Ajutado Modelo
+```{r}
+
+ flexdashboard::gauge(
+      value = round(params$metrics$r2_ajust_res_trns_scale, 4),
+      min = 0,
+      max = 1,
+      label = "Det. Ajust. Mod.(R\u00B2 ajust)",
+      sectors = flexdashboard::gaugeSectors(
+        success = c(0.6, 1),
+        warning = c(0.4, 0.6),
+        danger = c(0, 0.4)
+      )
+    )
+
+```
+
+
+Column {data-width=600}
+----------------------------------
+###
+```{r}
+
+   polar_metrics(params$metrics)
+
+```
+
+
+
+Coeficientes
+=================================
+
+
+
+### Gráficos
+```{r}
+
+coef_graph(params$model, params$prop)
+
+
+```
+
+
+### Valores
+```{r}
+
+coef_tab(params$model, params$prop)
+
+
+```
+
+
+
+Correlações
+=================================
+
+### Correlação
+```{r}
+
+plot_corr_heat_map(params$metrics)
+
+```
+
+
+
+### Tabela de Correlação
+```{r}
+
+corr_table(params$metrics)
+
+```
+
+
+
+
+Resíduos 1 {data-orientation=rows}
+=================================
+
+Row {data-height=700}
+-------------------
+### Resíduos
+```{r}
+
+#FONTE PARA RESIDUOS
+  resi <- params$metrics[c("Elemento",
+                        "residuals_trns_scale",
+                        "residuals_trns_scale_padroni",
+                        "residuals_natural_scale_padroni",
+                        "residuals_natural_scale",
+                        "residuals_relative_trns",
+                        "residuals_relative_natural",
+                        "var_dep_obs_natural_scale",
+                        "var_dep_obs_trns_scale" ,
+                        "var_dep_calc_trns_scale" ,
+                        "var_dep_calc_natural_scale")] %>%
+      dplyr::as_tibble() %>% 
+  plotly::highlight_key()
+
+
+p1 <- plot_residuals_ade(resi, params$metrics, "modelling") %>%
+  plotly::highlight(on = 'plotly_selected', off = 'plotly_deselect')
+
+p2 <- plot_residuals_graph(resi, params$metrics, "modelling") %>%
+  plotly::highlight(on = 'plotly_selected', off = 'plotly_deselect')
+
+p4 <- plot_residuals_ade(resi, params$metrics, "estimate") %>%
+  plotly::highlight(on = 'plotly_selected', off = 'plotly_deselect')
+
+p5 <- plot_residuals_graph(resi, params$metrics, "estimate") %>%
+  plotly::highlight(on = 'plotly_selected', off = 'plotly_deselect')
+
+plotly::subplot(p1, p4, p2, p5, nrows = 2, titleX = TRUE, titleY = TRUE)
+
+
+```
+
+Row {data-height=300}
+-----------------------------------
+### 
+```{r}
+
+p3 <- plot_residuals_hist(params$metrics, "modelling") %>% 
+  plotly::highlight(on = 'plotly_selected', off = 'plotly_deselect')
+
+p6 <- plot_residuals_hist(params$metrics, "estimate") %>% 
+  plotly::highlight(on = 'plotly_selected', off = 'plotly_deselect')
+
+plotly::subplot(p3, p6, shareX = TRUE )
+
+
+```
+
+
+Resíduos 2 {data-orientation=rows}
+=================================
+
+
+Row {data-height=300}
+-----------------------------------
+### Distância de Cook
+```{r}
+
+
+cook_graph(params$metrics)
+
+```
+
+Row {data-height=700}
+-----------------------------------
+
+### Tabela de Resíduos
+```{r}
+
+table_hist_res(params$metrics)
+
+
+```
+
+

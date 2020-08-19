@@ -1,0 +1,50 @@
+Package: geobox
+Title: geobox
+Version: 0.0.9000
+Authors@R: person('Bruno', 'Rezende', email = 'brunorezendem@hotmail.com', role = c('cre', 'aut'))
+Description: Reactive Regression Modelling. Spatial Analysis Included.
+License: MIT + file LICENSE
+Imports: 
+    config,
+    golem,
+    shiny,
+    htmltools,
+    dplyr,
+    stringr,
+    shinydashboard,
+    shinydashboardPlus,
+    shinyWidgets,
+    shinyEffects,
+    shinyFeedback,
+    shinyjs,
+    shinyBS,
+    leaflet,
+    leaflet.extras,
+    readr,
+    readxl,
+    sf,
+    tidyr,
+    DT,
+    waiter,
+    tools,
+    plotly,
+    RColorBrewer,
+    skimr,
+    vtreat,
+    rlang,
+    plotKML,
+    flexdashboard,
+    lubridate,
+    rhandsontable,
+    Hmisc,
+    purrr,
+    ppcor,
+    crosstalk,
+    rmarkdown,
+    modelr,
+    methods,
+    bench,
+    pkgload
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.0
