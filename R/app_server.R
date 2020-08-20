@@ -139,6 +139,11 @@ app_server <- function( input, output, session ) {
     prop$model_description   <- input$descricao_modelo
     prop$model_date_declared <- input$data_criacao
     
+    shiny::showNotification(
+      ui = "Informa\u00e7\u00f5es Salvas!",
+      type = "message",
+      duration = 2,
+      closeButton = TRUE)
     
   })
   
@@ -175,9 +180,11 @@ app_server <- function( input, output, session ) {
         duration = NULL,
         closeButton = TRUE)
       base::on.exit(removeNotification(id), add = TRUE)
+     
       
+      req(any(!prop$obs_disabled))
       
-      df_skim <- df[prop$obs_disabled, , drop = FALSE] %>% skim_to_table()
+      df_skim <- df[!prop$obs_disabled, , drop = FALSE] %>% skim_to_table()
       
       num <- vapply(df_skim, is.numeric, logical(1))
       num <- num[num] %>% names()
@@ -290,10 +297,11 @@ app_server <- function( input, output, session ) {
     data$reload,
     ignoreInit = TRUE, ignoreNULL = FALSE, {
       req(isolate(data$old_skim))
+      req(any(!prop$obs_disabled))
       
       if (data$action == "add" ) {
         
-        df <- data$main[, data$modified_vars, drop = FALSE]
+        df <- data$main[!prop$obs_disabled, data$modified_vars, drop = FALSE]
         
         df_skim <- df %>% skim_to_table()
         
@@ -302,7 +310,7 @@ app_server <- function( input, output, session ) {
         
       } else if (data$action == "update") {
         
-        df <- data$main[, data$modified_vars, drop = FALSE]
+        df <- data$main[!prop$obs_disabled, data$modified_vars, drop = FALSE]
         df_skim <- df %>% skim_to_table()
         
         
@@ -488,7 +496,9 @@ app_server <- function( input, output, session ) {
     var <- input$DE_addtional_info_select_var
     req(var %in% names(data$main))
     
-    test <- check_micronumerosidade(data$main[[var]], prop$var_nbr_type[[var]]) 
+    test <- check_micronumerosidade(data$main[[var]], 
+                                    prop$var_nbr_type[[var]], 
+                                    prop$obs_disabled) 
     
     test
     
@@ -581,7 +591,23 @@ app_server <- function( input, output, session ) {
         strucure_preview()
     }
     
-    data_table_preview(out)
+    
+    nms <- out %>% dplyr::select_if(is.numeric) %>% names()
+    
+    tb <- data_table_preview(out) 
+    
+    if (shiny::isTruthy(tb)) {
+      
+      tb <- tb %>% 
+        
+        DT::formatRound(nms, 
+                        dec.mark = ",", 
+                        mark = ".", 
+                        digits = input$config_decimal_digits)
+      
+    }
+    
+    tb
     
   })
   
@@ -921,7 +947,25 @@ app_server <- function( input, output, session ) {
       }
     }
     
-    data_table_preview(out)
+   nms <- out %>% dplyr::select_if(is.numeric) %>% names()
+    
+   
+   
+    tb <- data_table_preview(out) 
+      
+    if (shiny::isTruthy(tb)) {
+      
+      tb <- tb %>% 
+        
+        DT::formatRound(nms, 
+                        dec.mark = ",", 
+                        mark = ".", 
+                                   digits = input$config_decimal_digits)
+      
+    }
+    
+    tb
+      
     
   })
   
@@ -5514,7 +5558,45 @@ app_server <- function( input, output, session ) {
   })
   
   
+
+# PN - Teste de Micronumerosidade -----------------------------------------
+
+  output$micro_modelo <- shiny::renderText({
+    
+    k <- get_indep(prop) %>% length()
+    
+    n <- sum(!prop$obs_disabled)
+    
+    validate(need(n > 0, "Nenhum dado habilitado"))
+    validate(need(k > 0, "Nenhuma vari\u00e1vel habilitada"))
+    
+    
+    msg <- if (n >= 3*(k+1)) { 
+      
+      "a micronumerosidade est\u00e1 ok!"
+      
+    } else { 
+        
+      "a micronumerosidade N\u00e3O est\u00e1 ok!"
+      
+      }
+    paste0("Existem ", k, " vari\u00e1veis independentes habilitadas (k), logo s\u00e3o necess\u00e1rios ao menos (3*(k+1)) ", 3*(k+1), " dados. A quantidade de dados habilitados \u00e9: ", n, ". Portanto, ", msg)
+    
+  })
   
+output$tabela_micro <- DT::renderDataTable({
+  req(df_select())
+  
+  
+  check_micronumerosidade_all(df_select(), prop) %>% 
+    
+    dplyr::mutate_all(as.factor) %>% 
+    
+    data_table_preview2()
+  
+  
+  
+})  
   
   
   

@@ -16,7 +16,7 @@ app_ui <- function(request) {
       # header ------------------------------------------------------------------
       
       header = shinydashboardPlus::dashboardHeaderPlus(
-        title = "GeoCAIXA",
+        title = "GEOBOX",
         enable_rightsidebar = TRUE,
         rightSidebarIcon = "gears"
       ),
@@ -97,7 +97,7 @@ app_ui <- function(request) {
             ),
             
             shinydashboard::menuSubItem(
-              text = "V\u00C1rios Im\u00F3veis",
+              text = "V\u00e1rios Im\u00F3veis",
               icon = shiny::icon("calculator"),
               tabName = "estimative_panel_mult"
             )
@@ -106,7 +106,7 @@ app_ui <- function(request) {
           
           
           shinydashboard::menuItem(
-            text = "Exportar Modelo",
+            text = "Salvar/Exportar",
             icon = shiny::icon("rocket"),
             tabName = "export_data"
           ),
@@ -219,14 +219,7 @@ app_ui <- function(request) {
                                                    
            /* .sidebar { height: 50vh; overflow-y: auto; }*/
               
-            .body {
-    -moz-transform: scale(0.8, 0.8); /* Moz-browsers */
-    zoom: 0.8; /* Other non-webkit browsers */
-    zoom: 80%; /* Webkit browsers */
-}                                       
-                                                   
-                                                   
-                                                   '))),
+   '))),
         
         ## fim do CSS
         
@@ -353,7 +346,6 @@ app_ui <- function(request) {
                     
                     shiny::tabPanel(
                       title = "Geo",
-                      
                       
                       shiny::br(),
                       shiny::tags$p("Considerar o mesmo EPSG que o Google Maps (4326) na aus\u00EAncia de identifica\u00E7\u00E3o EPSG na planilha:"),
@@ -521,7 +513,7 @@ app_ui <- function(request) {
                 status = "primary",
                 solidHeader = FALSE,
                 collapsible = TRUE,
-                collapsed = TRUE,
+                collapsed = FALSE,
                 
                 
                 
@@ -535,7 +527,7 @@ app_ui <- function(request) {
                 shiny::textAreaInput(
                   "descricao_modelo", 
                   "Descri\u00E7\u00E3o do Modelo", 
-                  height = "400px"),
+                  height = "200px"),
                 
                 shiny::actionButton(
                   "save_model_information",
@@ -2660,7 +2652,7 @@ app_ui <- function(request) {
                     ),
                     
                     shinydashboardPlus::boxPlus(
-                      title = "An\u00C1lise dos Res\u00EDduos",
+                      title = "An\u00e1lise dos Res\u00EDduos",
                       width = 12,
                       status = "primary",
                       collapsible = TRUE,
@@ -2715,12 +2707,12 @@ app_ui <- function(request) {
                           
                           shiny::checkboxInput(
                             "pn_check_res_padro_var_indep_mod", 
-                            "Res\u00EDduos Padronizados por Vari\u00C1vel Independente - Modelagem", 
+                            "Res\u00EDduos Padronizados por Vari\u00e1vel Independente - Modelagem", 
                             value = FALSE),
                           
                           shiny::checkboxInput(
                             "pn_check_res_padro_var_indep_est", 
-                            "Res\u00EDduos Padronizados por Vari\u00C1vel Independente - Estimativa", 
+                            "Res\u00EDduos Padronizados por Vari\u00e1vel Independente - Estimativa", 
                             value = FALSE),
                           
                           shiny::checkboxInput(
@@ -2814,7 +2806,7 @@ app_ui <- function(request) {
                         "input.pn_check_res_padro_mod == true", 
                         shiny::br(),
                         shiny::h3("Res\u00EDduos Padronizados x Valores Calculados - Modelagem", align = "center"),
-                        shiny::helpText("Aqui s\u00E3o relacionados os valores calculados da vari\u00C1vel dependente na escala da fun\u00E7\u00E3o de modelagem"),
+                        shiny::helpText("Aqui s\u00E3o relacionados os valores calculados da vari\u00e1vel dependente na escala da fun\u00E7\u00E3o de modelagem"),
                         shiny::checkboxInput("pn_check_hist_padro_mod", "Exibir Histograma", value = TRUE),
                         
                         plotly::plotlyOutput("pn_res_resP_Vcal_mod")
@@ -2826,7 +2818,7 @@ app_ui <- function(request) {
                         "input.pn_check_res_padro_est == true", 
                         shiny::br(),
                         shiny::h3("Res\u00EDduos Padronizados x Valores Calculados - Estimativa", align = "center"),
-                        shiny::helpText("Aqui s\u00E3o relacionadosos valores calculados da vari\u00C1vel dependente na escala da fun\u00E7\u00E3o de estimativa"),
+                        shiny::helpText("Aqui s\u00E3o relacionadosos valores calculados da vari\u00e1vel dependente na escala da fun\u00E7\u00E3o de estimativa"),
                         shiny::checkboxInput("pn_check_hist_padro_est", "Exibir Histograma", value = TRUE),
                         
                         plotly::plotlyOutput("pn_res_resP_Vcal_est")
@@ -2837,9 +2829,9 @@ app_ui <- function(request) {
                       shiny::conditionalPanel(
                         "input.pn_check_res_padro_var_indep_mod == true", 
                         shiny::br(),
-                        shiny::h3("Res\u00EDduos Padronizados x Vari\u00C1veis Independentes - Modelagem", align = "center"),
-                        shiny::selectInput("pn_check_res_padro_var_indep_select_mod", "Selecione a vari\u00C1vel", choices = NULL),
-                        shiny::helpText("Aqui s\u00E3o relacionados os valores observados das vari\u00C1veis independentes na escala da modelagem"),
+                        shiny::h3("Res\u00EDduos Padronizados x Vari\u00e1veis Independentes - Modelagem", align = "center"),
+                        shiny::selectInput("pn_check_res_padro_var_indep_select_mod", "Selecione a vari\u00e1vel", choices = NULL),
+                        shiny::helpText("Aqui s\u00E3o relacionados os valores observados das vari\u00e1veis independentes na escala da modelagem"),
                         shiny::checkboxInput("pn_check_hist_mod", "Exibir Histograma", value = TRUE),
                         plotly::plotlyOutput("pn_res_resP_var_indep_mod")
                         
@@ -2849,9 +2841,9 @@ app_ui <- function(request) {
                       shiny::conditionalPanel(
                         "input.pn_check_res_padro_var_indep_est == true", 
                         shiny::br(),
-                        shiny::h3("Res\u00EDduos Padronizados x Vari\u00C1veis Independentes - Estimativa", align = "center"),
-                        shiny::selectInput("pn_check_res_padro_var_indep_select_est", "Selecione a vari\u00C1vel", choices = NULL),
-                        shiny::helpText("Aqui s\u00E3o relacionados os valores observados das vari\u00C1veis independentes na escala da fun\u00E7\u00E3o de estimativa"),
+                        shiny::h3("Res\u00EDduos Padronizados x Vari\u00e1veis Independentes - Estimativa", align = "center"),
+                        shiny::selectInput("pn_check_res_padro_var_indep_select_est", "Selecione a vari\u00e1vel", choices = NULL),
+                        shiny::helpText("Aqui s\u00E3o relacionados os valores observados das vari\u00e1veis independentes na escala da fun\u00E7\u00E3o de estimativa"),
                         shiny::checkboxInput("pn_check_hist_est", "Exibir Histograma", value = TRUE),
                         plotly::plotlyOutput("pn_res_resP_var_indep_est")
                         
@@ -2923,7 +2915,7 @@ app_ui <- function(request) {
                     
                     
                     shinydashboardPlus::boxPlus(
-                      title = "Vari\u00C1veis: Coeficientes, Dispers\u00E3o e Signific\u00e2ncias",
+                      title = "Vari\u00e1veis: Coeficientes, Dispers\u00E3o e Signific\u00e2ncias",
                       width = 12,
                       status = "primary",
                       collapsible = TRUE,
@@ -2938,12 +2930,12 @@ app_ui <- function(request) {
                           
                           shiny::checkboxInput(
                             "pn_check_coef_plot", 
-                            "Gr\u00C1fico dos Coeficientes", 
+                            "Gr\u00e1fico dos Coeficientes", 
                             value = TRUE),
                           
                           shiny::checkboxInput(
                             "pn_check_coef_bar_plot", 
-                            "Gr\u00C1fico de Barras dos Coeficientes", 
+                            "Gr\u00e1fico de Barras dos Coeficientes", 
                             value = TRUE),
                           
                           shiny::checkboxInput(
@@ -3000,7 +2992,7 @@ app_ui <- function(request) {
                     
                     
                     shinydashboardPlus::boxPlus(
-                      title = "An\u00C1lise de Colinearidade",
+                      title = "An\u00e1lise de Colinearidade",
                       width = 12,
                       status = "primary",
                       collapsible = TRUE,
@@ -3077,7 +3069,7 @@ app_ui <- function(request) {
                         
                         shiny::selectInput(
                           "method_correlation", 
-                          "M\u00E9todo de C\u00C1lculo", 
+                          "M\u00E9todo de C\u00e1lculo", 
                           choices = c("Pearson" = "pearson", 
                                       "Kendall" ="kendall", 
                                       "Spearman" ="spearman"),
@@ -3124,7 +3116,7 @@ app_ui <- function(request) {
                         
                         shiny::selectInput(
                           "method_correlation_est", 
-                          "M\u00E9todo de C\u00C1lculo", 
+                          "M\u00E9todo de C\u00e1lculo", 
                           choices = c("Pearson" = "pearson", 
                                       "Kendall" ="kendall", 
                                       "Spearman" ="spearman"),
@@ -3173,7 +3165,7 @@ app_ui <- function(request) {
                         
                         shiny::selectInput(
                           "method_partial_correlation", 
-                          "M\u00E9todo de C\u00C1lculo", 
+                          "M\u00E9todo de C\u00e1lculo", 
                           choices = c("Pearson" = "pearson", 
                                       "Kendall" ="kendall", 
                                       "Spearman" ="spearman"),
@@ -3218,7 +3210,7 @@ app_ui <- function(request) {
                         
                         shiny::selectInput(
                           "method_partial_correlation_est", 
-                          "M\u00E9todo de C\u00C1lculo", 
+                          "M\u00E9todo de C\u00e1lculo", 
                           choices = c("Pearson" = "pearson", 
                                       "Kendall" ="kendall", 
                                       "Spearman" ="spearman"),
@@ -3260,7 +3252,7 @@ app_ui <- function(request) {
                     
                     
                     shinydashboardPlus::boxPlus(
-                      title = "An\u00C1lise da Equa\u00E7\u00E3o",
+                      title = "An\u00e1lise da Equa\u00E7\u00E3o",
                       width = 12,
                       status = "primary",
                       collapsible = TRUE,
@@ -3275,7 +3267,7 @@ app_ui <- function(request) {
                           
                           shiny::checkboxInput(
                             "pn_check_eq_graph_mod", 
-                            "Gr\u00C1fico Valores Transformados", 
+                            "Gr\u00e1fico Valores Transformados", 
                             value = TRUE),
                           
                           shiny::checkboxInput(
@@ -3285,7 +3277,7 @@ app_ui <- function(request) {
                           
                           shiny::checkboxInput(
                             "pn_check_eq_graph_est", 
-                            "Gr\u00C1fico Valores Reescalados", 
+                            "Gr\u00e1fico Valores Reescalados", 
                             value = TRUE),
                           
                           shiny::checkboxInput(
@@ -3313,7 +3305,7 @@ app_ui <- function(request) {
                         shiny::h3("Modelagem", align = "center"),
                         shiny::selectInput(
                           "pn_eq_select_var_x_mod", 
-                          "Selecione a Vari\u00C1vel", 
+                          "Selecione a Vari\u00e1vel", 
                           choices = NULL),
                         
                         shiny::sliderInput(
@@ -3371,7 +3363,7 @@ app_ui <- function(request) {
                         
                         shiny::h3("Estimativa", align = "center"),
                         shiny::selectInput("pn_eq_select_var_x_est", 
-                                           "Selecione a Vari\u00C1vel", 
+                                           "Selecione a Vari\u00e1vel", 
                                            choices = NULL),
                         
                         shiny::selectInput(
@@ -3427,8 +3419,29 @@ app_ui <- function(request) {
                         DT::dataTableOutput("df_eq_analysis_table_est")
                         
                       )
+                    ),
+                    
+                    shinydashboardPlus::boxPlus(
+                      title = "Micronumerosidade",
+                      width = 12,
+                      status = "primary",
+                      collapsible = TRUE,
+                      collapsed = TRUE,
+                      closable = FALSE,
+                      enable_sidebar = FALSE,
+                      
+                      shiny::h3("Micronumerosidade do Modelo"),
+                      shiny::textOutput("micro_modelo"),
+                      
+                      shiny::h3("Micronumerosidade das vari\u00e1veis"),
+                      DT::dataTableOutput("tabela_micro")
+                      
                     )
                   ) #fim da div
+                  
+                  
+                  
+                  
                 ), #fim da aba detalhamento
                 
                 
@@ -3436,7 +3449,7 @@ app_ui <- function(request) {
                 
                 
                 shiny::tabPanel(
-                  title = "Busca Autom\u00C1tica",
+                  title = "Busca Autom\u00e1tica",
                   
                   # shinyWidgets::prettyRadioButtons(
                   #   inputId = "MO_trns_search",
@@ -3534,7 +3547,7 @@ app_ui <- function(request) {
                 ),
                 
                 shiny::tabPanel(
-                  title = "Busca Autom\u00C1tica",
+                  title = "Busca Autom\u00e1tica",
                   
                   DT::dataTableOutput("df_transf_choose2")
                   
@@ -3605,25 +3618,25 @@ app_ui <- function(request) {
                 label = "Salvar em .html",
                 style = "width:100%;")
               
-            ),
-            
-            shinydashboard::box(
-              title = "Exportar como Arquivo Excel",
-              width = 12,
-              status = "primary",
-              collapsible = FALSE,
-              collapsed = FALSE,
-              
-              shinyjs::disabled(shiny::downloadButton(
-                outputId = "salvar_em_xls",
-                label = "Salvar em .xls",
-                style = "width:100%;")),
-              
-              shinyjs::disabled(shiny::downloadButton(
-                outputId = "salvar_em_xlsx",
-                label = "Salvar em .xlsx",
-                style = "width:100%;"))
             )
+            
+            # ,shinydashboard::box(
+            #   title = "Exportar como Arquivo Excel",
+            #   width = 12,
+            #   status = "primary",
+            #   collapsible = FALSE,
+            #   collapsed = FALSE,
+            #   
+            #   shinyjs::disabled(shiny::downloadButton(
+            #     outputId = "salvar_em_xls",
+            #     label = "Salvar em .xls",
+            #     style = "width:100%;")),
+            #   
+            #   shinyjs::disabled(shiny::downloadButton(
+            #     outputId = "salvar_em_xlsx",
+            #     label = "Salvar em .xlsx",
+            #     style = "width:100%;"))
+            # )
             
           ), # fim do painel export data
           
@@ -3650,7 +3663,7 @@ app_ui <- function(request) {
                 collapsed = TRUE,
                 
                 shiny::helpText("Nesse painel s\u00E3o listadas as equa\u00E7\u00F5es simuladas no Painel de Modelagem. Essa equa\u00E7\u00F5es s\u00E3o geradas com base nas trnasformadas selecionadas e nos dados habilitados no momento da pesquisa. "), 
-                shiny::helpText("Quando uma linha dessa tabela \u00E9 clicada, automaticamente as trasnformadas associadas s\u00E3o definidas no painel de vari\u00C1veis. \u00c9 poss\u00EDvel testar cada equa\u00E7\u00E3o com os valores definidos abaixo para o computo de uma estimativa de valor."),
+                shiny::helpText("Quando uma linha dessa tabela \u00E9 clicada, automaticamente as trasnformadas associadas s\u00E3o definidas no painel de vari\u00e1veis. \u00c9 poss\u00EDvel testar cada equa\u00E7\u00E3o com os valores definidos abaixo para o computo de uma estimativa de valor."),
                 
                 DT::dataTableOutput("df_transf_choose3")
               )
@@ -3825,11 +3838,11 @@ app_ui <- function(request) {
                   ), # fim do tabPanel
                   
                   shiny::tabPanel(
-                    "Gr\u00C1fico de Previs\u00E3o",
+                    "Gr\u00e1fico de Previs\u00E3o",
                     
                     shiny::selectInput(
                       "et_graph_prev_var_x", 
-                      "Vari\u00C1vel no eixo X", 
+                      "Vari\u00e1vel no eixo X", 
                       choices = NULL),
                     
                     shinyWidgets::prettySwitch(
@@ -3857,7 +3870,7 @@ app_ui <- function(request) {
                     
                     shiny::selectInput(
                       "et_graph_prev_relation",
-                      "Relacionar Vari\u00C1vel Dependente a seguinte vari\u00C1vel:", 
+                      "Relacionar Vari\u00e1vel Dependente a seguinte vari\u00e1vel:", 
                       choices = NULL),
                     
                     shiny::radioButtons(
@@ -3892,7 +3905,7 @@ app_ui <- function(request) {
                 collapsible = TRUE,
                 collapsed = TRUE,
                 
-                shiny::helpText("Nessa tabela, as equa\u00E7\u00F5es pesquisadas na Busca Autom\u00C1tica do Painel de Modelagem. \u00c9 poss\u00EDvel selecionar mais de uma linha e ao clicar em 'Avaliar nas Equa\u00E7\u00F5es Selecionadas', as informa\u00E7\u00F5es do im\u00F3vel avaliando s\u00E3o inseridas em cada modelo retornando a avalaic\u00E3o do im\u00F3vel em diferentes equa\u00E7\u00F5es simultanetamente."), 
+                shiny::helpText("Nessa tabela, as equa\u00E7\u00F5es pesquisadas na Busca Autom\u00e1tica do Painel de Modelagem. \u00c9 poss\u00EDvel selecionar mais de uma linha e ao clicar em 'Avaliar nas Equa\u00E7\u00F5es Selecionadas', as informa\u00E7\u00F5es do im\u00F3vel avaliando s\u00E3o inseridas em cada modelo retornando a avalaic\u00E3o do im\u00F3vel em diferentes equa\u00E7\u00F5es simultanetamente."), 
                 shiny::helpText("Os resultados s\u00E3o exibidos no painel abaixo"),
                 
                 
@@ -3938,14 +3951,14 @@ app_ui <- function(request) {
                 shiny::helpText("Essa etapa permite que sejam avaliados mais de 1 um im\u00F3vel simultaneamente no modelo selecionado no Est\u00FAdio de Modelagem"),
                 
                 
-                shiny::helpText("Faz-se necess\u00C1rio que todas as informa\u00E7\u00F5es de cada dado em cada vari\u00C1vel estejam prenchidas. Os dados que possu\u00EDrem alguma informa\u00E7\u00E3o n\u00E3o preenchida ser\u00E3o automaticamente filtrados"),
+                shiny::helpText("Faz-se necess\u00e1rio que todas as informa\u00E7\u00F5es de cada dado em cada vari\u00e1vel estejam prenchidas. Os dados que possu\u00EDrem alguma informa\u00E7\u00E3o n\u00E3o preenchida ser\u00E3o automaticamente filtrados"),
                 # duas maneiras de inserir os dados: inserir planilha de excel
                 ## vantagem: nao \u00E9 necessario definir q quantidade de dados inicialmente
                 ## desvantagem: pode entrar mto lixo, variaveis com nome errado, etc
                 
                 # criar rhandsontable e nele colar os valores
                 ## vantagem:  
-                ### controle dos nomes das vari\u00C1veis
+                ### controle dos nomes das vari\u00e1veis
                 ### padronizacao de valores
                 ## desvantagem:
                 ### tem q informar q quantidade de dados com antecedencia
@@ -3965,7 +3978,7 @@ app_ui <- function(request) {
                   
                   shinyWidgets::prettySwitch(
                     inputId = "auto_capture_spatial_var", 
-                    "Se houver vari\u00C1veis espaciais, caputur\u00C1-las automaticamente", 
+                    "Se houver vari\u00e1veis espaciais, caputur\u00e1-las automaticamente", 
                     status = "primary",
                     value = TRUE),
                   
@@ -4291,9 +4304,9 @@ app_ui <- function(request) {
           shiny::sliderInput(
             "plot_2d_jitter", 
             label = "Jittering" ,
-            step = 1,
+            step = 10,
             min = 0, 
-            max = 10, 
+            max = 100, 
             value = 0),
           
           

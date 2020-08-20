@@ -1767,7 +1767,7 @@ skim_to_table <- function(df) {
   
   
   
-  df_skim <- bind_rows(skim_standart(), df_skim) 
+  df_skim <- dplyr::bind_rows(skim_standart(), df_skim) 
   
   names(df_skim) <- names(skim_new_names())
   
@@ -1813,7 +1813,27 @@ choices_var_behavior <- function() {
   
 }
 
-check_micronumerosidade <- function(x, nbr_type) {
+check_micronumerosidade <- function(x, nbr_type, obs_disabled) {
+  #browser()
+  n_obs <- sum(!obs_disabled)
+  
+  validate(need(n_obs > 0, "N\u00e3o h\u00e1 dados habilitados"))
+  
+  
+  if (n_obs <= 30) {
+    
+    lim <- 3
+    
+  } else if (n_obs > 30 & n_obs <= 100) {
+    
+    lim <-  .1 * n_obs
+    
+  } else if (n_obs > 100) {
+    
+    lim <- 10
+    
+  }
+  
   
   var_ty <- choices_nbr_var_type()
   type <- var_ty[var_ty == nbr_type] %>% names()
@@ -1826,7 +1846,7 @@ check_micronumerosidade <- function(x, nbr_type) {
   cont <- table(x, useNA = "no")
   
   
-  i <- which(cont < 3)
+  i <- which(cont < lim)
   
   cont <- cont[i] #%>% as.vector()
   
@@ -1836,12 +1856,90 @@ check_micronumerosidade <- function(x, nbr_type) {
   niveis <- paste0(names(cont), " com ", cont, " dado(s)") %>% 
     paste(collapse = ", ")
   
-  msg <- paste("A vari\u00E1vel apresenta micronumerosidade nos n\u00EDveis:\n\n", niveis)
+  # msg <- paste("A vari\u00E1vel apresenta micronumerosidade nos n\u00EDveis:\n\n", niveis)
+  
+  
+  msg <- paste("Essa vari\u00E1vel apresenta micronumerosidade")
   
   msg 
   
   
 }
+
+check_micronumerosidade_all <- function(df, prop) {
+  
+  n_obs <- sum(!prop$obs_disabled)
+  
+  validate(need(n_obs > 0, "N\u00e3o h\u00e1 dados habilitados"))
+  
+  
+  if (n_obs <= 30) {
+    
+    lim <- 3
+    
+  } else if (n_obs > 30 & n_obs <= 100) {
+    
+    lim <-  .1 * n_obs
+    
+  } else if (n_obs > 100) {
+    
+    lim <- 10
+    
+  }
+  df <- df %>% remove_geo() %>% remove_key_column()
+ 
+  
+  
+  tb <- lapply(names(df), function(var) {
+   
+    nbr_type <- prop$var_nbr_type[[var]]
+    x <- choices_nbr_var_type()
+    nbr_type_name <- x[x == nbr_type] %>% names()
+     
+    
+    if (nbr_type %in% c("cod_aloc", "dicotomic", "cod_ajus")) {
+      
+       
+    contagem <- table(df[[var]], useNA = "no")
+    
+    i <- which(contagem < lim)
+    
+    contagem <- contagem[i]
+    
+    dplyr::tibble(
+      Var = var,
+      Tipo = nbr_type_name,
+      Micronumerosidade = "Sim",
+      Valor = names(contagem),
+      Qtde = contagem, 
+      "Necess\u00e1rio" = lim
+    )
+      
+      
+    } else {
+      
+    dplyr::tibble(
+      Var = var,
+      Tipo = nbr_type_name,
+      Micronumerosidade = "N\u00e3o",
+      Valor = NA,
+      Qtde = NA,
+      "Necess\u00e1rio" = NA
+    )
+      
+   }
+    
+  }) %>% dplyr::bind_rows()
+  
+  
+  
+ tb
+  
+  
+  
+  
+}
+
 
 
 check_var_na <- function(x) {
