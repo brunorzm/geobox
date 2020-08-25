@@ -20,7 +20,7 @@ golem::fill_desc(
   author_first_name = "Bruno", # Your First Name
   author_last_name = "Rezende", # Your Last Name
   author_email = "brunorezendem@hotmail.com", # Your Email
-  repo_url = NULL # The URL of the GitHub Repo (optional) 
+  repo_url = "https://github.com/brunorzm/geobox" # The URL of the GitHub Repo (optional) 
 )     
 
 ## Set {golem} options ----

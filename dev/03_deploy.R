@@ -20,6 +20,11 @@ devtools::check_rhub()
 devtools::check_win_devel()
 rhub::check_for_cran()
 
+# no git
+# cd c:/Users/Bruno/Documents/pacote/geobox
+# git add .
+# git commit
+
 
 # Deploy
 
