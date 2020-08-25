@@ -9,53 +9,47 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
-The goal of geobox is to …
+O objetivo do pacote *geobox* é permitir a manipulação reativa de
+modelos de regressão linear. Assim, ao optar-se pela transformação de
+escala de uma variável ou pela habilitação/desabilitação de um dado
+(e/ou variável), os índices estatísticos referentes à aderência do
+modelo à realidade são recalculados. Portanto, é possível verificar, em
+tempo real, a influência das informações inseridas.
 
-## Installation
+O pacote permite ainda a definição de elementos urbanos
+georreferenciados em seu mapa interno. A reprodução desses objetos no
+meio digital conduz à criação interativa de variáveis de localização que
+podem influenciar a equação que espelha a realidade.
 
-You can install the released version of geobox from
-[CRAN](https://CRAN.R-project.org) with:
+O *geobox* pode ser utilizado para a modelagem (por regressão linear) de
+dados de qualquer natureza. Contudo, a primeira versão do programa foi
+adaptada à NBR 14.653, que versa sobre a avaliação de imóveis.
+Especificamente em seu Anexo A, essa norma congrega premissas e testes
+estatísticos relativos à definição da regressão linear e/ou a suas boas
+práticas.
 
-``` r
-install.packages("geobox")
-```
+## Instalação
 
-And the development version from [GitHub](https://github.com/) with:
-
-``` r
-# install.packages("devtools")
-devtools::install_github("brunorzm/geocaixa")
-```
-
-## Example
-
-This is a basic example which shows you how to solve a common problem:
-
-``` r
-library(geobox)
-## basic example code
-```
-
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+A versão em desenvolvimento pode ser instalada por meio do
+[GitHub](https://github.com/brunorzm/geobox):
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+install.packages("devtools")
+devtools::install_github("brunorzm/geobox")
 ```
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date.
+Ainda é possível o compartilhamento do pacote zipado (na extensão
+*.tar.gz*) e instalação local, por meio das funções:
 
-You can also embed plots, for example:
+``` r
+install.packages("devtools")
+devtools::install_local("pasta/do/arquivo")
+```
 
-<img src="man/figures/README-pressure-1.png" width="100%" />
+## Para executar o GEOBOX
 
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub\!
+Uma vez instalado, basta um único comando para executar a ferramenta:
+
+``` r
+geobox::iniciar_geobox()
+```

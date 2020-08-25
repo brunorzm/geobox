@@ -23,7 +23,10 @@ rhub::check_for_cran()
 # no git
 # cd c:/Users/Bruno/Documents/pacote/geobox
 # git add .
-# git commit
+# git commit --no-verify
+# digita uma descricao, da esc, e digita :wq
+# git remote add origin https://github.com/brunorzm/geobox
+# git push -u origin master
 
 
 # Deploy

@@ -29,14 +29,14 @@ O _geobox_ pode ser utilizado para a modelagem (por regressão linear) de dados 
 ## Instalação
 
 
-A versão em desenvolvimento do github pode ser instalada por meio do github [GitHub](https://github.com/brunorzm/geobox), por meio dos comandos:
+A versão em desenvolvimento pode ser instalada por meio do [GitHub](https://github.com/brunorzm/geobox):
 
 ``` r
 install.packages("devtools")
 devtools::install_github("brunorzm/geobox")
 ```
 
-Ainda é possível o compartilhamento do pacote zipado (na extensão _*.tar.gz_) e instalação local, por meio das funções:
+Ainda é possível o compartilhamento do pacote zipado (na extensão _.tar.gz_) e instalação local, por meio das funções:
 
 ``` r
 install.packages("devtools")
@@ -50,7 +50,7 @@ devtools::install_local("pasta/do/arquivo")
 
 Uma vez instalado, basta um único comando para executar a ferramenta:
 
-```{r example}
+```r 
 geobox::iniciar_geobox()
 
 ```
