@@ -290,7 +290,7 @@ app_ui <- function(request) {
                         choices = c("UTF-8", "latin1", "ASCII"), 
                         selected = "UTF-8"),
                       
-                      shiny::sliderInput(
+                      shiny::numericInput(
                         inputId = "csv_config_skip_lines",
                         label = "Ignorar as linhas iniciais",
                         value = 0,
@@ -317,16 +317,16 @@ app_ui <- function(request) {
                       title = "Excel",
                       shiny::br(),
                       
-                      shiny::sliderInput(
+                      shiny::numericInput(
                         inputId = "excel_config_sheet",
-                        label = "Aba da Planilha",
+                        label = "Aba da planilha a ser lida",
                         value = 1,
                         min = 1,
                         max = 20,
                         step = 1
                       ),
                       
-                      shiny::sliderInput(
+                      shiny::numericInput(
                         inputId = "excel_config_skip_lines",
                         label = "Ignorar as linhas iniciais",
                         value = 0,
@@ -384,86 +384,86 @@ app_ui <- function(request) {
                         status = "warning",
                         right = TRUE
                       )
-                    ),
+                    )#,
                     
-                    shiny::tabPanel(
-                      
-                      title = "SIMIL",
-                      shiny::br(),
-                      
-                      shinyWidgets::prettyCheckboxGroup(
-                        "simil_peca", 
-                        "Pe\u00E7as a Importar",
-                        status = "primary",
-                        choices = c("Ficha de Pesquisa",
-                                    "Laudo de An\u00E1lise", 
-                                    "Laudo de Avalia\u00E7\u00E3o", 
-                                    "Relat\u00F3rio de Vistoria"),
-                        
-                        selected = c("Ficha de Pesquisa",
-                                     "Laudo de An\u00E1lise", 
-                                     "Laudo de Avalia\u00E7\u00E3o", 
-                                     "Relat\u00F3rio de Vistoria")),
-                      
-                      shinyWidgets::prettyCheckboxGroup(
-                        "simil_tipologia", 
-                        "Tipologias a importar", 
-                        status = "primary",
-                        choices = c("Unidade em Pr\u00E9dio", 
-                                    "Unidade Isolada Constru\u00E7\u00E3o", 
-                                    "Unidade Isolada Terreno"),
-                        selected = c("Unidade em Pr\u00E9dio", 
-                                     "Unidade Isolada Constru\u00E7\u00E3o", 
-                                     "Unidade Isolada Terreno")),
-                      
-                      shiny::dateRangeInput(
-                        "simil_intervalo_data", 
-                        "Data de Finaliza\u00E7\u00E3o:",
-                        start  = lubridate::today() - lubridate::years(1),
-                        end    = lubridate::today(),
-                        min    = "2015-01-01",
-                        max    = lubridate::today(),
-                        format = "dd/mm/yyyy",
-                        language = "pt-BR",
-                        separator = ":"),
-                      
-                      shinyWidgets::prettySwitch(
-                        "simil_excluir_sem_data_final", 
-                        "Excluir registros sem data data de finaliza\u00E7\u00E3o", 
-                        slim = TRUE, 
-                        status = "warning", 
-                        value = TRUE),
-                      # shinyWidgets::pickerInput(
-                      #   inputId = "simil_variables",
-                      #   label = "Vari\u00E1veis a visualizar nesse painel:",
-                      #   choices = nomes_simil,
-                      #   selected = simil_selected,
-                      #   width = "100%",
-                      #   multiple = TRUE,
-                      #   options = pickerOptions(
-                      #     title = "Selecione",
-                      #     actionsBox = TRUE,
-                      #     deselectAllText = "Selecionar Nenhuma",
-                      #     selectAllText = "Selecionar Todas",
-                      #     dropupAuto = FALSE,
-                      #     header = "Visualizar nesse painel:",
-                      #     liveSearch = TRUE,
-                      #     liveSearchNormalize = TRUE,
-                      #     size = 7,
-                      #     width = "35px",
-                      #     selectedTextFormat = "count"
-                      #   )
-                      # )
-                      
-                      
-                      shiny::selectizeInput(
-                        "simil_variables",
-                        "Vari\u00E1veis a importar",
-                        choices = nomes_simil,
-                        selected = simil_selected,
-                        multiple = TRUE)
-                      
-                    )
+                    # shiny::tabPanel(
+                    #   
+                    #   title = "SIMIL",
+                    #   shiny::br(),
+                    #   
+                    #   shinyWidgets::prettyCheckboxGroup(
+                    #     "simil_peca", 
+                    #     "Pe\u00E7as a Importar",
+                    #     status = "primary",
+                    #     choices = c("Ficha de Pesquisa",
+                    #                 "Laudo de An\u00E1lise", 
+                    #                 "Laudo de Avalia\u00E7\u00E3o", 
+                    #                 "Relat\u00F3rio de Vistoria"),
+                    #     
+                    #     selected = c("Ficha de Pesquisa",
+                    #                  "Laudo de An\u00E1lise", 
+                    #                  "Laudo de Avalia\u00E7\u00E3o", 
+                    #                  "Relat\u00F3rio de Vistoria")),
+                    #   
+                    #   shinyWidgets::prettyCheckboxGroup(
+                    #     "simil_tipologia", 
+                    #     "Tipologias a importar", 
+                    #     status = "primary",
+                    #     choices = c("Unidade em Pr\u00E9dio", 
+                    #                 "Unidade Isolada Constru\u00E7\u00E3o", 
+                    #                 "Unidade Isolada Terreno"),
+                    #     selected = c("Unidade em Pr\u00E9dio", 
+                    #                  "Unidade Isolada Constru\u00E7\u00E3o", 
+                    #                  "Unidade Isolada Terreno")),
+                    #   
+                    #   shiny::dateRangeInput(
+                    #     "simil_intervalo_data", 
+                    #     "Data de Finaliza\u00E7\u00E3o:",
+                    #     start  = lubridate::today() - lubridate::years(1),
+                    #     end    = lubridate::today(),
+                    #     min    = "2015-01-01",
+                    #     max    = lubridate::today(),
+                    #     format = "dd/mm/yyyy",
+                    #     language = "pt-BR",
+                    #     separator = ":"),
+                    #   
+                    #   shinyWidgets::prettySwitch(
+                    #     "simil_excluir_sem_data_final", 
+                    #     "Excluir registros sem data data de finaliza\u00E7\u00E3o", 
+                    #     slim = TRUE, 
+                    #     status = "warning", 
+                    #     value = TRUE),
+                    #   # shinyWidgets::pickerInput(
+                    #   #   inputId = "simil_variables",
+                    #   #   label = "Vari\u00E1veis a visualizar nesse painel:",
+                    #   #   choices = nomes_simil,
+                    #   #   selected = simil_selected,
+                    #   #   width = "100%",
+                    #   #   multiple = TRUE,
+                    #   #   options = pickerOptions(
+                    #   #     title = "Selecione",
+                    #   #     actionsBox = TRUE,
+                    #   #     deselectAllText = "Selecionar Nenhuma",
+                    #   #     selectAllText = "Selecionar Todas",
+                    #   #     dropupAuto = FALSE,
+                    #   #     header = "Visualizar nesse painel:",
+                    #   #     liveSearch = TRUE,
+                    #   #     liveSearchNormalize = TRUE,
+                    #   #     size = 7,
+                    #   #     width = "35px",
+                    #   #     selectedTextFormat = "count"
+                    #   #   )
+                    #   # )
+                    #   
+                    #   
+                    #   shiny::selectizeInput(
+                    #     "simil_variables",
+                    #     "Vari\u00E1veis a importar",
+                    #     choices = nomes_simil,
+                    #     selected = simil_selected,
+                    #     multiple = TRUE)
+                    #   
+                    # )
                   )
                   
                 ),
@@ -1546,19 +1546,29 @@ app_ui <- function(request) {
                   )
                 ),
                 
-                shiny::actionButton("data_edit_init", "Iniciar Editor", width = "100%"),
+                
+               
+                shiny::actionButton("data_edit_init", 
+                                    "Iniciar Editor", 
+                                    width = "100%"),
                 
                 shiny::br(),
                 
                 shinyBS::bsModal(
                   id = "modal_Edit_Data",
-                  title =  "Editor de Valores",
-                  trigger =  "data_edit_init",
+                  title = "Editor de Valores",
+                  trigger = "data_edit_init",
                   size = "large",
+                  
                   rhandsontable::rHandsontableOutput("DE_data_edit"),
+                  
                   shiny::br(),
-                  shiny::actionButton("save_data_edit", "Salvar Altera\u00E7\u00F5es", width = "100%")
+
+                  shiny::actionButton("save_data_edit",
+                                      "Salvar Altera\u00E7\u00F5es",
+                                      width = "100%")
                 ),
+               
                 
                 #rHandsontableOutput("DE_data_edit"),
                 
@@ -1568,6 +1578,7 @@ app_ui <- function(request) {
                 
               )# fim da BOX
             ) #fim da fluidRow
+            
           ),
           
           
@@ -4412,7 +4423,7 @@ app_ui <- function(request) {
         ) #fim do rightSidebarTabContent
         
       ),
-      title = "GeoBox - Reactive Regression Modelling"
+      title = " - Reactive Regression Modelling"
     )
     
     

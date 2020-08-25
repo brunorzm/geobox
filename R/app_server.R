@@ -117,7 +117,10 @@ app_server <- function( input, output, session ) {
     
     shinyjs::disable("start")
     
-    msg <- shiny::HTML(paste("Dados Inseridos com Sucesso"))
+    
+    dimen <- data$main %>% remove_key_column() %>% remove_geo() %>% dim()
+    
+    msg <- shiny::HTML(paste0(dimen[1], " dados e ", dimen[2], " vari\u00e1veis inseridos com sucesso"))
     
     shinyWidgets::sendSweetAlert(
       session = session,
@@ -4925,12 +4928,12 @@ app_server <- function( input, output, session ) {
           autoWidth = FALSE,
           
           buttons = list(
-            'copy', 
-            list(
-              extend = 'collection',
-              buttons = c('csv', 'excel'),
-              text = 'Download'
-            )
+            'copy', 'csv', 'excel'
+            # list(
+            #   extend = 'collection',
+            #   buttons = c('csv', 'excel'),
+            #   text = 'Download'
+            # )
           )
           
         ),
@@ -6236,13 +6239,13 @@ output$tabela_micro <- DT::renderDataTable({
           autoWidth = FALSE,
           
           buttons = list(
-            'copy', 
+            'copy', 'csv', 'excel'
             
-            list(
-              extend = 'collection',
-              buttons = c('csv', 'excel'),
-              text = 'Download'
-            )
+            # list(
+            #   extend = 'collection',
+            #   buttons = c('csv', 'excel'),
+            #   text = 'Download'
+            # )
           )
           
         ),
@@ -6515,13 +6518,13 @@ output$tabela_micro <- DT::renderDataTable({
           autoWidth = FALSE,
           
           buttons = list(
-            'copy', 
+            'copy', 'csv', 'excel'
             
-            list(
-              extend = 'collection',
-              buttons = c('csv', 'excel'),
-              text = 'Download'
-            )
+            # list(
+            #   extend = 'collection',
+            #   buttons = c('csv', 'excel'),
+            #   text = 'Download'
+            # )
           )
           
         ),

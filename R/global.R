@@ -3234,13 +3234,13 @@ data_table_cor <- function(ma, round, analysis_type = "estimate", prop) {
       pageLength = 5,
       columnDefs = list(list(className = 'dt-center', targets = "_all")),
       buttons = list(
-        'copy', 
+        'copy', 'csv', 'excel'
         
-        list(
-          extend = 'collection',
-          buttons = c('csv', 'excel'),
-          text = 'Download'
-        )
+        # list(
+        #   extend = 'collection',
+        #   buttons = c('csv', 'excel'),
+        #   text = 'Download'
+        # )
       )
       
       
@@ -3268,12 +3268,12 @@ data_table_preview2 <- function(df) {
       
       dom = "liftBp",
       buttons = list(
-        'copy', 
-        list(
-          extend = 'collection',
-          buttons = c('csv', 'excel'),
-          text = 'Download'
-        )
+        'copy', 'csv', 'excel'
+        # list(
+        #   extend = 'collection',
+        #   buttons = c('csv', 'excel'),
+        #   text = 'Download'
+        # )
       ),
       
       scrollX = TRUE, 
@@ -7387,8 +7387,8 @@ plot_residuals_graph <- function(metrics,
     ) %>%
     
     plotly::add_markers(
-      x = ~get(x_axis),
-      y = ~get(res_pad),
+      x = ~base::get(x_axis),
+      y = ~base::get(res_pad),
       marker = list(
         size = point_size,
         opacity = point_alpha),
@@ -7416,7 +7416,7 @@ plot_residuals_graph <- function(metrics,
       plotly::plot_ly() %>%
       
       plotly::add_histogram(
-        y = ~get(res_pad), 
+        y = ~base::get(res_pad), 
         color = I("black"),
         name = "Histograma",
         histnorm = histnorm,
@@ -7539,8 +7539,8 @@ plot_residuals_graph_indep <- function(model,
     ) %>%
     
     plotly::add_markers(
-      x = ~get(var_indep),
-      y = ~get(res_pad),
+      x = ~base::get(var_indep),
+      y = ~base::get(res_pad),
       marker = list(
         size = point_size,
         opacity = point_alpha),
@@ -7569,7 +7569,7 @@ plot_residuals_graph_indep <- function(model,
       plotly::plot_ly() %>%
       
       plotly::add_histogram(
-        y = ~get(res_pad), 
+        y = ~base::get(res_pad), 
         color = I("black"),
         histnorm = histnorm,
         nbinsy = nbinsx,
@@ -8087,7 +8087,6 @@ coef_bar_graph <- function(sumario, prop, grandeza) {
                    title = "")
     )
   
-  
 }
 
 
@@ -8129,13 +8128,13 @@ coef_tab <- function(sumario, prop, dig) {
       paging = TRUE,
       dom = "liftBp",
       buttons = list(
-        'copy', 
+        'copy', 'csv', 'excel'
         
-        list(
-          extend = 'collection',
-          buttons = c('csv', 'excel'),
-          text = 'Download'
-        )
+        # list(
+        #   extend = 'collection',
+        #   buttons = c('csv', 'excel'),
+        #   text = 'Download'
+        # )
       ),
       lengthMenu = list(c( 3, 5, 10, 25, 50, 100, -1),
                         c("3", "5", "10", "25", "Todos")),
@@ -8499,8 +8498,8 @@ plot_residuals_ade <- function(resi,
     # ) %>%
     
     plotly::add_markers(
-      x = ~get(x_axis),
-      y = ~get(y_axis),
+      x = ~base::get(x_axis),
+      y = ~base::get(y_axis),
       marker = list(
         size = point_size,
         opacity = point_alpha),
