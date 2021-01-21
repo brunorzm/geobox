@@ -259,411 +259,31 @@ check_encoding <- function(df, session) {
 }
 
 
-nomes_simil <- c("C\u00F3digo da GIHAB vinculada ao munic\u00EDpio do im\u00F3vel", 
-                 "Grupo de Im\u00F3veis", 
-                 "Tipo de Pe\u00E7a T\u00E9cnica", 
-                 "C\u00F3digo da GIHAB vinculada \u00E0 Unidade Demandante", 
-                 "C\u00F3digo da Unidade Demandante", 
-                 "Ordenador", 
-                 "Ano", 
-                 "Complemento", 
-                 "Sequencial", 
-                 "Objetivo", 
-                 "Finalidade",
-                 "Pressupostos, Ressalvas e Fatores Limitantes", 
-                 "Atividade", 
-                 "Produto", 
-                 "Linha", 
-                 "Fonte", 
-                 "Tipo de Interessado", 
-                 "CPF ou CNPJ do interessado", 
-                 "Grau de Sigilo",
-                 "Categoria do Im\u00F3vel (tipo de im\u00F3vel)", 
-                 "Cadastro Municipal",
-                 "CEP",
-                 "UF",
-                 "Munic\u00EDpio",
-                 "Distrito / Localidade / Cidade", 
-                 "Bairro", 
-                 "Tipo de Logradouro",
-                 "Logradouro",
-                 "N\u00ba", 
-                 "Setor", 
-                 "Quadra",
-                 "Bloco", 
-                 "Lote", 
-                 "Conjunto", 
-                 "N\u00ba da Unidade", 
-                 "T\u00EDtulo do Empreendimento", 
-                 "Nome do Empreendimento",
-                 "Complementos", 
-                 "Coordenadas Grau Decimal", 
-                 "Latitude", 
-                 "Hemisf\u00E9rio", 
-                 "Longitude",
-                 "Residencial Unifamiliar - Usos na Regi\u00E3o", 
-                 "Residencial Multifamiliar - Usos na Regi\u00E3o", 
-                 "Comercial  - Usos na Regi\u00E3o", 
-                 "Industrial - Usos na Regi\u00E3o", 
-                 "Institucional - Usos na Regi\u00E3o", 
-                 "Outros Usos na Regi\u00E3o", 
-                 "\u00C1gua Pot\u00E1vel no Endere\u00E7o", 
-                 "Esgoto Sanit\u00E1rio   no Endere\u00E7o", 
-                 "Energia El\u00E9trica   no Endere\u00E7o", 
-                 "Telefone no Endere\u00E7o", 
-                 "Pavimenta\u00E7\u00E3o no Endere\u00E7o", 
-                 "Esgoto Pluvial no Endere\u00E7o", 
-                 "G\u00E1s Canalizado no Endere\u00E7o", 
-                 "Ilumina\u00E7\u00E3o P\u00FAblica no Endere\u00E7o", 
-                 "Coleta de Lixo no Bairro", 
-                 "Transporte Coletivo no Bairro", 
-                 "Com\u00E9rcio no Bairro", 
-                 "Rede Banc\u00E1ria no Munic\u00EDpio", 
-                 "Educa\u00E7\u00E3o no Bairro", 
-                 "Sa\u00FAde no Bairro", 
-                 "Seguran\u00E7a no Bairro", 
-                 "Outros Servi\u00E7os no Bairro", 
-                 "Padr\u00E3o das Edifica\u00E7\u00F5es na Regi\u00E3o", 
-                 "Influ\u00EAncias Valorizantes Sobre o Im\u00F3vel", 
-                 "Influ\u00EAncias Desvalorizantes sobre o Im\u00F3vel", 
-                 "Classifica\u00E7\u00E3o da Via de Acesso ao Im\u00F3vel", 
-                 "Condi\u00E7\u00E3o da Regi\u00E3o no Contexto Urbano", 
-                 "Inser\u00E7\u00E3o (tipo de implanta\u00E7\u00E3o)", 
-                 "Tipo de Vistoria", "Data da Vistoria", 
-                 "Ocupa\u00E7\u00E3o da Unidade", 
-                 "Orienta\u00E7\u00E3o Solar da Unidade", 
-                 "Vista Panor\u00e2mica a partir da unidade", 
-                 "Aquecimento Solar", "Arm\u00E1rios Embutidos",
-                 "Ar Condicionado", 
-                 "Campos de Futebol/Golfe", 
-                 "Equipamentos de Seguran\u00E7a",
-                 "Espa\u00E7o com Churrasqueira", 
-                 "Espa\u00E7o c/ Churrasqueira Privativo", 
-                 "Estacionamento para visitantes", 
-                 "Gerador", 
-                 "Lareira", 
-                 "Rede Interna de G\u00E1s", 
-                 "Mini-Quadra Esportiva", 
-                 "Piscina", 
-                 "Piscina Privativa",
-                 "Play Ground",
-                 "Po\u00E7o Artesiano", 
-                 "Portaria e/ou Guarita", 
-                 "Sal\u00E3o de Festas",
-                 "Outros Sal\u00F5es de Lazer", 
-                 "Sauna / Ofur\u00F4 / Hidromassagem",
-                 "Sauna / Ofur\u00F4 / Hidromassagem Privativa", 
-                 "Quadra de T\u00EAnis", "Quadra Poliesportiva",
-                 "Central Aquecimento de \u00C1gua", 
-                 "Pilotis", 
-                 "Outros Equipamentos", 
-                 "N\u00E3o Possui Equipamentos", 
-                 "Quantidade de compartimentos com arm\u00E1rios embutidos", 
-                 "Quantidade de Sal\u00F5es de Lazer", 
-                 "Nome do Campo Customiz\u00E1vel 1", 
-                 "Atributo do Campo Customiz\u00E1vel  1", 
-                 "Nome do Campo Customiz\u00E1vel 2", 
-                 "Atributo do Campo Customiz\u00E1vel  2", 
-                 "Nome do Campo Customiz\u00E1vel 3", 
-                 "Atributo do Campo Customiz\u00E1vel  3", 
-                 "Nome do Campo Customiz\u00E1vel 4", 
-                 "Atributo do Campo Customiz\u00E1vel  4", 
-                 "Nome do Campo Customiz\u00E1vel 5", 
-                 "Atributo do Campo Customiz\u00E1vel  5", 
-                 "Nome do Campo Customiz\u00E1vel 6", 
-                 "Atributo do Campo Customiz\u00E1vel  6", 
-                 "Uso da Unidade", 
-                 "\u00C1rea Privativa da Unidade  Averbada (m2)", 
-                 "\u00C1rea Privativa Descont\u00EDnua Averbada  (m2)", 
-                 "\u00C1rea Comum Averbada  (m2)", 
-                 "\u00C1rea Averbada Total (m2)", 
-                 "\u00C1rea Privativa da Unidade  N\u00E3o Averbada  (m2)", 
-                 "\u00C1rea Privativa Descont\u00EDnua N\u00E3o Averbada (m2)", 
-                 "\u00C1rea Comum N\u00E3o Averbada (m2)", 
-                 "\u00C1rea N\u00E3o Averbada Total (m2)", 
-                 "\u00C1rea Privativa Total da Unidade (m2)", 
-                 "\u00C1rea Privativa Descont\u00EDnua Total (m2)", 
-                 "\u00C1rea Comum Total (m2)", 
-                 "Total Constru\u00EDda (m2)", 
-                 "\u00C1rea Privativa Descoberta (m2)", 
-                 "Vagas  livres/ Independentes Cobertas", 
-                 "Vagas  Bloqueadas/ Bloqueantes Cobertas", 
-                 "Total de Vagas Cobertas", 
-                 "Vagas  livres / Independentes Descobertas", 
-                 "Vagas  Bloqueadas/ Bloqueantes Descobertas", 
-                 "Total de Vagas Descobertas", 
-                 "Total Geral de Vagas", 
-                 "\u00C1rea(s) de Servi\u00E7o", 
-                 "\u00C1rea(s) de Servi\u00E7o Descoberta(s)",
-                 "Banheiro(s) Privativo (s)", 
-                 "Banheiro(s) Privativo(s) de Empregada", 
-                 "Banheiro(s) de Servi\u00E7o", 
-                 "Banheiro(s) Social(ais)", 
-                 "Closet(s)", "Copa(s)",
-                 "Copa(s) Cozinha(s) Conjugada(s)", 
-                 "Cozinha(s)", 
-                 "Cozinha(s) \u00C1rea(s) de Servi\u00E7o(s) Conjugada(s)", 
-                 "Cozinha(s) Americana (s)", 
-                 "Despensa(s) Dep\u00F3sito(s)", 
-                 "Escrit\u00F3rio (s) / Gabinete(s)", 
-                 "Hall(s) de Circula\u00E7\u00E3o", 
-                 "Lavabo", 
-                 "Mezanino(s)",
-                 "Quarto(s) (dormit\u00F3rios)", 
-                 "Quarto(s) de Empregada", 
-                 "Sacada(s) Varanda(s)", 
-                 "Sala(s)", 
-                 "Terra\u00E7o(s)", 
-                 "Outros Compartimentos", 
-                 "Paredes (internas para UP e externas para UIC", 
-                 "Pisos Partes Molhadas", 
-                 "Paredes Partes Molhadas", 
-                 "Pisos Partes Secas", 
-                 "Teto da UIC",
-                 "Cobertura da UIC",
-                 "Acabamento Fachada Principal da Edifica\u00E7\u00E3o", 
-                 "Acabamento Demais Fachadas da Edifica\u00E7\u00E3o",
-                 "Esquadrias Fachada Principal da Edifica\u00E7\u00E3o", 
-                 "Esquadrias Demais Fachadas da Edifica\u00E7\u00E3o", 
-                 "Padr\u00E3o de acabamento da Unidade", 
-                 "Estado de Conserva\u00E7\u00E3o da Unidade",
-                 "Idade Estimada da edifica\u00E7\u00E3o como um todo", 
-                 "Vida \u00datil Remanescente da edifica\u00E7\u00E3o como um todo",
-                 "Posi\u00E7\u00E3o F\u00EDsica da UP", 
-                 "Implanta\u00E7\u00E3o da UIC no terreno", 
-                 "Andar da UP", 
-                 "N\u00ba de Unidades no Andar da UP", 
-                 "A UP \u00E9 de cobertura ?", 
-                 "Identifica\u00E7\u00E3o dos Pavimentos da UP", 
-                 "N\u00ba de Subsolos  da UIC", "N\u00ba de T\u00E9rreos  da UIC", 
-                 "N\u00ba de Mezanimos  da UIC", 
-                 "N\u00ba de Sobrelojas  da UIC", 
-                 "N\u00ba Pavimentos outros  da UIC",
-                 "N\u00ba de Coberturas  da UIC", 
-                 "N\u00ba Total de Pavimentos da UIC ou UP", 
-                 "N\u00ba de pavimentos do Pr\u00E9dio (UP)", 
-                 "N\u00ba de unidades do pr\u00E9dio (UP)", 
-                 "N\u00ba de subsolos do pr\u00E9dio (UP)", 
-                 "N\u00ba de elevadores do pr\u00E9dio (UP) ou da UIC",
-                 "Caracteriza\u00E7\u00E3o da cobertura do pr\u00E9dio (UP)", 
-                 "Estado de Conserva\u00E7\u00E3o do pr\u00E9dio (UP)", 
-                 "Destina\u00E7\u00E3o do pr\u00E9dio (UP)", 
-                 "Exist\u00EAncia de Lojas no T\u00E9rreo do Pr\u00E9dio (UP)",
-                 "Exist\u00EAncia de Salas no T\u00E9rreo do Pr\u00E9dio (UP)", 
-                 "Exist\u00EAncia de Pilotis no T\u00E9rreo do Pr\u00E9dio (UP)",
-                 "Exist\u00EAncia de Lazer no T\u00E9rreo do Pr\u00E9dio (UP)", 
-                 "Exist\u00EAncia de Unidades Residenciais no T\u00E9rreo do Pr\u00E9dio (UP)", 
-                 "Exist\u00EAncia de Garagens no T\u00E9rreo do Pr\u00E9dio (UP)", 
-                 "Exist\u00EAncia de Outros Elementos no T\u00E9rreo do Pr\u00E9dio  (UP)", 
-                 "Pisos \u00C1reas de Circula\u00E7\u00E3o do Pr\u00E9dio (UP)", 
-                 "Paredes \u00C1reas de Circula\u00E7\u00E3o do Pr\u00E9dio (UP)", 
-                 "Padr\u00E3o de Acabamento do Pr\u00E9dio (UP)", 
-                 "V\u00EDcios de Constru\u00E7\u00E3o Graves na Edifica\u00E7\u00E3o", 
-                 "Outros Danos Graves na Edifica\u00E7\u00E3o", 
-                 "Estabilidade e Solidez da Edifica\u00E7\u00E3o", 
-                 "Condi\u00E7\u00F5es de Habitabilidade da Edifica\u00E7\u00E3o", 
-                 "\u00C1rea do Terreno (m2)", 
-                 "Testada do Terreno (m)", 
-                 "Profundidade Equivalente do Terreno (m)", 
-                 "Lados do Terreno", 
-                 "Posi\u00E7\u00E3o do Terreno", 
-                 "Cota/Greide", 
-                 "Formato Aproximado do  Terreno", 
-                 "Inclina\u00E7\u00E3o do Terreno", 
-                 "Exist\u00EAncia de  Cercamento no Terreno", 
-                 "Tipo de Cercamento na(s) Frente(s)", 
-                 "Tipo de Cercamento nas laterais e fundos", 
-                 "Voca\u00E7\u00E3o Principal do Terreno", 
-                 "Destina\u00E7\u00F5es do terreno", 
-                 "Nivel de Restri\u00E7\u00E3o de Uso do terreno", 
-                 "Superf\u00EDcie do terreno", 
-                 "Exist\u00EAncia Conten\u00E7\u00E3o no terreno", 
-                 "Exist\u00EAncia de Terraplanagem no terreno", 
-                 "Exist\u00EAncia de Pavimenta\u00E7\u00E3o no terreno", 
-                 "Exist\u00EAncia de Esgoto Sanit\u00E1rio no terreno", 
-                 "Exist\u00EAncia Esgoto Pluvial no terreno", 
-                 "Exist\u00EAncia de \u00C1gua Pot\u00E1vel no terreno", 
-                 "Exist\u00EAncia de  Energia El\u00E9trica no Terreno",
-                 "Exist\u00EAncia de  Ilumina\u00E7\u00E3o no Terreno", 
-                 "Exist\u00EAncia de Projeto Aprovado para o Terreno",
-                 "Exist\u00EAncia de Outras benfeitorias no terreno", 
-                 "Restri\u00E7\u00F5es F\u00EDsicas para aproveitamento do terreno (%)",
-                 "CAB (%) - Coeficiente de Aproveitamento B\u00E1sico", 
-                 "CAM (%) - Coeficiente de Aproveitamento M\u00E1ximo", 
-                 "Gabarito M\u00E1ximo (m)", 
-                 "Gabarito M\u00E1ximo (N\u00ba de Pavimentos)", 
-                 "Taxa de Ocupa\u00E7\u00E3o M\u00E1xima (%)", 
-                 "N\u00ba de Frentes do Terreno", 
-                 "Valor de Benfeitorias Residuais (R$)", 
-                 "Fra\u00E7\u00E3o Ideal da Unidade", 
-                 "Taxa de Condom\u00EDnio da Unidade", 
-                 "N\u00ba de Pr\u00E9dios no Empreendimento", 
-                 "N\u00ba Total de Unidades no Empreendimento", 
-                 "Exist\u00EAncia de Pr\u00E9dios no Empreendimento", 
-                 "Exist\u00EAncia de Unidades Isoladas", 
-                 "Exist\u00EAncia de Equipamentos de Lazer no Empreendimento", 
-                 "Exist\u00EAncia Garagens/Estacionamentos na \u00C1rea do Empreendimento", 
-                 "Exist\u00EAncia de  Arruamento do Empreendimento", 
-                 "Exist\u00EAncia de Com\u00E9rcio no Empreendimento", 
-                 "Exist\u00EAncia de Lotes Vagos no Empreendimento", 
-                 "Exist\u00EAncia de Outros Elementos no Empreendimento", 
-                 "Exist\u00EAncia de \u00C1gua pot\u00E1vel no Empreendimento", 
-                 "Exist\u00EAncia de Esgoto Sanit\u00E1rio no Empreendimento", 
-                 "Exist\u00EAncia de Energia El\u00E9trica no Empreendimento", 
-                 "Exist\u00EAncia de Telefone no Empreendimento", 
-                 "Exist\u00EAncia de Pavimenta\u00E7\u00E3o no Empreendimento", 
-                 "Exist\u00EAncia de Esgoto Pluvial no Empreendimento", 
-                 "Exist\u00EAncia de G\u00E1s Canalizado no Empreendimento", 
-                 "Exist\u00EAncia de Ilumina\u00E7\u00E3o Publica no Empreendimento", 
-                 "Padr\u00E3o do Empreendimento", 
-                 "\u00C1rea (m2) do Terreno do Empreendimento", 
-                 "Testada (m) do Terreno do Emprendimento", 
-                 "Profundidade Equivalente (m) do Terreno do Empreendimento", 
-                 "Posi\u00E7\u00E3o do Empreendimento", 
-                 "Cota / Greide no Empreendimento", 
-                 "Exist\u00EAncia de Cercamento no Empreendimento", 
-                 "Tipo de Cercamento na Frente  Empreendimento", 
-                 "Tipo de Cercamento nas Laterais/Fundos no Empreendimento",
-                 "Controle de Acesso ao Empreendimento", 
-                 "Im\u00F3vel Real ou Parad\u00EDgma Aparenta Conformidade Com a Documenta\u00E7\u00E3o", 
-                 "Manifesta\u00E7\u00E3o Sobre a Possibilidade de Aceita\u00E7\u00E3o como Garantia", 
-                 "Atendimento aos Requisitos Minimos",
-                 "M\u00E9todo Utilizado na Avalia\u00E7\u00E3o", 
-                 "Precis\u00E3o Obtida", 
-                 "Fundamenta\u00E7\u00E3o Atingida", 
-                 "Performance do Mercado Percebida", 
-                 "N\u00EDvel de Ofertas Verificado no Segmento de Mercado",
-                 "Liquidez Inferida Para o Im\u00F3vel", 
-                 "Situa\u00E7\u00E3o Considerada para Efeito de Avalia\u00E7\u00E3o",
-                 "Tipo de Valor Definido", 
-                 "Data de Ref\u00EAncia da Avalia\u00E7\u00E3o", 
-                 "\u00C1rea considerada para avalia\u00E7\u00E3o (m2)", 
-                 "R$/m2", 
-                 "Produto \u00C1rea X  R$/m2", 
-                 "\u00ectem 1 da Avalia\u00E7\u00E3o Itemizada", 
-                 "Valor item 1",
-                 "\u00ectem 2 da Avalia\u00E7\u00E3o Itemizada",
-                 "Valor item 2", 
-                 "\u00ectem 3 da Avalia\u00E7\u00E3o Itemizada", 
-                 "Valor item 3", 
-                 "\u00ectem 4 da Avalia\u00E7\u00E3o Itemizada", 
-                 "Valor item 4", 
-                 "\u00ectem 5 da Avalia\u00E7\u00E3o Itemizada", 
-                 "Valor item 5", 
-                 "Somat\u00F3rio dos Itens (Avalia\u00E7\u00E3o Itemizada)",
-                 "Valor de Avalia\u00E7\u00E3o (R$)", 
-                 "Valor M\u00EDnimo Admiss\u00EDvel (conforme NBR 14.653-2) R$", 
-                 "Valor M\u00E1ximo Admiss\u00EDvel (conforme NBR 14.653-2) R$", 
-                 "N\u00FAmero da Matr\u00EDcula da Unidade", 
-                 "Of\u00EDcio/Zona da Matr\u00EDcula da Unidade", 
-                 "UF da Matr\u00EDcula da Unidade", 
-                 "Comarca da Matr\u00EDcula da Unidade", 
-                 "Data de Refer\u00EAncia da Certid\u00E3o de Matr\u00EDcula da Unidade", 
-                 "N\u00FAmero da Matr\u00EDcula M\u00E3e do Empreendimento", 
-                 "Of\u00EDcio/Zona da Matr\u00EDcula M\u00E3e do Empreendimento", 
-                 "UF da Matr\u00EDcula M\u00E3e do Empreendimento", 
-                 "Comarca da Matr\u00EDcula M\u00E3e do Empreendimento", 
-                 "Data de Refer\u00EAncia da Certid\u00E3o da Matr\u00EDcula M\u00E3e do Empreendimento", 
-                 "Informa\u00E7\u00F5es Complementares Oriundas das Op\u00E7\u00F5es 'Outros' Assinaladas no Formul\u00E1rio", 
-                 "Demais Informa\u00E7\u00F5es Complementares", 
-                 "Nome do Respons\u00E1vel T\u00E9cnico (RT)", 
-                 "Forma\u00E7\u00E3o/cargo do RT", "CREA / CAU / Mar\u00EDcula do RT",
-                 "CPF do RT", 
-                 "Empresa", 
-                 "CNPJ", 
-                 "Nome do Representante Legal (RL)", 
-                 "CPF do RL", 
-                 "Refer\u00EAncia-Descri\u00E7\u00E3o das Fotos Anexadas", 
-                 "Nome da Fonte da Informa\u00E7\u00E3o", 
-                 "Telefone da Fonte da Informa\u00E7\u00E3o",
-                 "E-mail / Site da Fonte da Informa\u00E7\u00E3o", 
-                 "Classifica\u00E7\u00E3o da Fonte da Informa\u00E7\u00E3o", 
-                 "Tipo de Informa\u00E7\u00E3o", 
-                 "Tipo de Neg\u00F3cio", 
-                 "Valor R$", 
-                 "Data do Evento", 
-                 "Situa\u00E7\u00E3o da Pe\u00E7a T\u00E9cnica", 
-                 "Estado Conserva\u00E7\u00E3o Empreendimento",
-                 "SIAPF", 
-                 "Tipologia", 
-                 "Qtde Unidades Tipologia", 
-                 "Versao", 
-                 "Data Finaliza\u00E7\u00E3o", 
-                 "Data da Atualiza\u00E7\u00E3o")
-
-simil_selected <- c("CEP",
-                    "UF",
-                    "Munic\u00EDpio","Logradouro",
-                    "N\u00ba", "N\u00ba da Unidade", 
-                    "T\u00EDtulo do Empreendimento", 
-                    "Nome do Empreendimento",
-                    "Complementos", 
-                    
-                    "Coordenadas Grau Decimal", 
-                    "Latitude", 
-                    "Hemisf\u00E9rio", 
-                    "Longitude",
-                    
-                    "\u00C1rea Privativa da Unidade  Averbada (m2)", 
-                    "\u00C1rea Privativa Descont\u00EDnua Averbada  (m2)", 
-                    "\u00C1rea Comum Averbada  (m2)", 
-                    "\u00C1rea Averbada Total (m2)", 
-                    "\u00C1rea Privativa da Unidade  N\u00E3o Averbada  (m2)", 
-                    "\u00C1rea Privativa Descont\u00EDnua N\u00E3o Averbada (m2)", 
-                    "\u00C1rea Comum N\u00E3o Averbada (m2)", 
-                    "\u00C1rea N\u00E3o Averbada Total (m2)", 
-                    "\u00C1rea Privativa Total da Unidade (m2)", 
-                    "\u00C1rea Privativa Descont\u00EDnua Total (m2)", 
-                    "\u00C1rea Comum Total (m2)", 
-                    "Total Constru\u00EDda (m2)", 
-                    "\u00C1rea Privativa Descoberta (m2)", 
-                    "Vagas  livres/ Independentes Cobertas", 
-                    "Vagas  Bloqueadas/ Bloqueantes Cobertas", 
-                    "Total de Vagas Cobertas", 
-                    "Vagas  livres / Independentes Descobertas", 
-                    "Vagas  Bloqueadas/ Bloqueantes Descobertas", 
-                    "Total de Vagas Descobertas", 
-                    "Total Geral de Vagas", 
-                    "\u00C1rea(s) de Servi\u00E7o", 
-                    "\u00C1rea(s) de Servi\u00E7o Descoberta(s)",
-                    "Banheiro(s) Privativo (s)", 
-                    "Banheiro(s) Privativo(s) de Empregada", 
-                    "Banheiro(s) de Servi\u00E7o", 
-                    "Banheiro(s) Social(ais)",
-                    "Quarto(s) (dormit\u00F3rios)", 
-                    "Quarto(s) de Empregada", 
-                    "Sacada(s) Varanda(s)", 
-                    "Sala(s)", 
-                    "\u00C1rea considerada para avalia\u00E7\u00E3o (m2)", 
-                    "R$/m2", 
-                    "Produto \u00C1rea X  R$/m2", 
-                    "Valor de Avalia\u00E7\u00E3o (R$)")
 
 
-
-check_prepare_simil <- function(df, 
+check_prepare_pre_config <- function(df, 
                                 session, 
-                                is_simil, 
-                                simil_variables, 
-                                simil_peca, 
-                                simil_tipologia, 
+                                is_pre_config, 
+                                pre_config_variables, 
+                                pre_config_peca, 
+                                pre_config_tipologia, 
                                 data_inicio = NA,
                                 data_fim = NA,
-                                simil_excluir_sem_data_final) {
+                                pre_config_excluir_sem_data_final) {
   . <- `Longitude Oeste` <- Latitude <- `Coordenadas Grau Decimal` <-  NULL
   
   
   is_saved <- attr(df, "saved_file") %>% is.null() %>% `!`
   if (is_saved) return(df)
   
-  if (!is_simil) { return(df) }
+  if (!is_pre_config) { return(df) }
   
   
   
-  msg <- shiny::HTML(paste("Foi detectada base de dados proveniente do Banco de dados SIMIL"))
+  msg <- shiny::HTML(paste("Foi detectada base de dados Pré-Configurada"))
   
   id <- shiny::showNotification(
-    ui = "Base do SIMIL detectada!",
+    ui = "Base Pré-Configurada detectada!",
     type = "message",
     duration = 2,
     closeButton = TRUE)
@@ -688,20 +308,20 @@ check_prepare_simil <- function(df,
   
   
   
-  # Filtro de Pe\u00E7a tecnica
   
-  if (shiny::isTruthy(simil_peca)) {
+  
+  if (shiny::isTruthy(pre_config_peca)) {
     
-    df <- df %>% dplyr::filter_at("Tipo de Pe\u00E7a T\u00E9cnica",  dplyr::any_vars(. %in% simil_peca))
+    df <- df %>% dplyr::filter_at("Pe\u00E7a T\u00E9cnica",  dplyr::any_vars(. %in% pre_config_peca))
     
     
     
   }
   
   # FIltro de Tipologia
-  if (shiny::isTruthy(simil_tipologia)) {
+  if (shiny::isTruthy(pre_config_tipologia)) {
     
-    df <- df %>% dplyr::filter_at("Grupo de Im\u00F3veis",  dplyr::any_vars(. %in% simil_tipologia))
+    df <- df %>% dplyr::filter_at("Im\u00F3veis",  dplyr::any_vars(. %in% pre_config_tipologia))
     
     
   }
@@ -709,11 +329,11 @@ check_prepare_simil <- function(df,
   
   
   # FIltrod e Data
-  data_finalizacao <- df[["Data Finaliza\u00E7\u00E3o"]] %>% lubridate::dmy_hms()
+  data_finalizacao <- df[["Data Final"]] %>% lubridate::dmy_hms()
   
   date_test <- data_finalizacao >= data_inicio & data_finalizacao <= data_fim
   
-  if (simil_excluir_sem_data_final) {
+  if (pre_config_excluir_sem_data_final) {
     
     date_test[is.na(date_test)] <- FALSE
     
@@ -722,19 +342,19 @@ check_prepare_simil <- function(df,
     date_test[is.na(date_test)] <- TRUE
   }
   
-  df[["Data Finaliza\u00E7\u00E3o"]] <- data_finalizacao
+  df[["Data Final"]] <- data_finalizacao
   
   df <- df[date_test, ]
   
   
   
   # Filtro de coluna
-  if (shiny::isTruthy(simil_variables)) {
+  if (shiny::isTruthy(pre_config_variables)) {
     
-    i <- simil_variables == "Longitude Oeste"
-    simil_variables[i] <- "Longitude"
+    i <- pre_config_variables == "Longitude Oeste"
+    pre_config_variables[i] <- "Longitude"
     
-    df <- df[, c(simil_variables), drop = FALSE]
+    df <- df[, c(pre_config_variables), drop = FALSE]
     
   }
   
@@ -1714,21 +1334,19 @@ skim_new_names <- function() {
 }
 
 
-skim_standart <- function() {
-  
-  dplyr::tibble(
-    "skim_type" = logical(0), 
-    "skim_variable"= logical(0), 
-    "n_missing" = logical(0), 
-    "complete_rate" = logical(0), 
-    "character.min" = logical(0), 
-    "character.max" = logical(0), 
-    "character.empty" = logical(0), 
-    "character.n_unique" = logical(0), 
-    "character.whitespace" = logical(0), 
-    "Date.min" = logical(0), 
-    "Date.max" = logical(0), 
-    "Date.median" = logical(0), 
+skim_standart <-   dplyr::tibble(
+    "skim_type" = character(0), 
+    "skim_variable" = character(0), 
+    "n_missing" = numeric(0), 
+    "complete_rate" = numeric(0), 
+    "character.min" = numeric(0), 
+    "character.max" = numeric(0), 
+    "character.empty" = numeric(0), 
+    "character.n_unique" = numeric(0), 
+    "character.whitespace" = numeric(0), 
+    "Date.min" = numeric(0), 
+    "Date.max" = numeric(0), 
+    "Date.median" = numeric(0), 
     "Date.n_unique" = logical(0), 
     "factor.ordered" = logical(0), 
     "factor.n_unique" = logical(0), 
@@ -1742,14 +1360,14 @@ skim_standart <- function() {
     "numeric.p50" = logical(0), 
     "numeric.p75" = logical(0), 
     "numeric.p100" = logical(0), 
-    "numeric.hist" = logical(0), 
+    "numeric.hist" = character(0), 
     "POSIXct.min" = logical(0), 
     "POSIXct.max" = logical(0), 
     "POSIXct.median" = logical(0), 
     "POSIXct.n_unique" = logical(0)
   )
   
-}
+
 
 
 
@@ -1767,7 +1385,7 @@ skim_to_table <- function(df) {
   
   
   
-  df_skim <- dplyr::bind_rows(skim_standart(), df_skim) 
+  df_skim <- dplyr::bind_rows(skim_standart, df_skim)
   
   names(df_skim) <- names(skim_new_names())
   
@@ -7592,8 +7210,6 @@ plot_residuals_graph_indep <- function(model,
   } 
   
   p
-  
-  
   
 }
 

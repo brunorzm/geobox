@@ -4,6 +4,7 @@
 #'     DO NOT REMOVE.
 #' @import shiny
 #' @noRd
+#' @depends shinyBS
 app_ui <- function(request) {
   tagList(
     # Leave this function for adding external resources
@@ -109,7 +110,7 @@ app_ui <- function(request) {
             text = "Salvar/Exportar",
             icon = shiny::icon("rocket"),
             tabName = "export_data"
-          ),
+          )#,
           
           # 
           # shinydashboard::menuItem(
@@ -132,7 +133,7 @@ app_ui <- function(request) {
           #   )
           # ),
           
-          shiny::actionButton("brow", "Acionar Browser", width = "100%")
+          # shiny::actionButton("brow", "Acionar Browser", width = "100%")
           #checkboxInput("brow2", "Acionar Browser 2")
           
         )
@@ -384,86 +385,7 @@ app_ui <- function(request) {
                         status = "warning",
                         right = TRUE
                       )
-                    )#,
-                    
-                    # shiny::tabPanel(
-                    #   
-                    #   title = "SIMIL",
-                    #   shiny::br(),
-                    #   
-                    #   shinyWidgets::prettyCheckboxGroup(
-                    #     "simil_peca", 
-                    #     "Pe\u00E7as a Importar",
-                    #     status = "primary",
-                    #     choices = c("Ficha de Pesquisa",
-                    #                 "Laudo de An\u00E1lise", 
-                    #                 "Laudo de Avalia\u00E7\u00E3o", 
-                    #                 "Relat\u00F3rio de Vistoria"),
-                    #     
-                    #     selected = c("Ficha de Pesquisa",
-                    #                  "Laudo de An\u00E1lise", 
-                    #                  "Laudo de Avalia\u00E7\u00E3o", 
-                    #                  "Relat\u00F3rio de Vistoria")),
-                    #   
-                    #   shinyWidgets::prettyCheckboxGroup(
-                    #     "simil_tipologia", 
-                    #     "Tipologias a importar", 
-                    #     status = "primary",
-                    #     choices = c("Unidade em Pr\u00E9dio", 
-                    #                 "Unidade Isolada Constru\u00E7\u00E3o", 
-                    #                 "Unidade Isolada Terreno"),
-                    #     selected = c("Unidade em Pr\u00E9dio", 
-                    #                  "Unidade Isolada Constru\u00E7\u00E3o", 
-                    #                  "Unidade Isolada Terreno")),
-                    #   
-                    #   shiny::dateRangeInput(
-                    #     "simil_intervalo_data", 
-                    #     "Data de Finaliza\u00E7\u00E3o:",
-                    #     start  = lubridate::today() - lubridate::years(1),
-                    #     end    = lubridate::today(),
-                    #     min    = "2015-01-01",
-                    #     max    = lubridate::today(),
-                    #     format = "dd/mm/yyyy",
-                    #     language = "pt-BR",
-                    #     separator = ":"),
-                    #   
-                    #   shinyWidgets::prettySwitch(
-                    #     "simil_excluir_sem_data_final", 
-                    #     "Excluir registros sem data data de finaliza\u00E7\u00E3o", 
-                    #     slim = TRUE, 
-                    #     status = "warning", 
-                    #     value = TRUE),
-                    #   # shinyWidgets::pickerInput(
-                    #   #   inputId = "simil_variables",
-                    #   #   label = "Vari\u00E1veis a visualizar nesse painel:",
-                    #   #   choices = nomes_simil,
-                    #   #   selected = simil_selected,
-                    #   #   width = "100%",
-                    #   #   multiple = TRUE,
-                    #   #   options = pickerOptions(
-                    #   #     title = "Selecione",
-                    #   #     actionsBox = TRUE,
-                    #   #     deselectAllText = "Selecionar Nenhuma",
-                    #   #     selectAllText = "Selecionar Todas",
-                    #   #     dropupAuto = FALSE,
-                    #   #     header = "Visualizar nesse painel:",
-                    #   #     liveSearch = TRUE,
-                    #   #     liveSearchNormalize = TRUE,
-                    #   #     size = 7,
-                    #   #     width = "35px",
-                    #   #     selectedTextFormat = "count"
-                    #   #   )
-                    #   # )
-                    #   
-                    #   
-                    #   shiny::selectizeInput(
-                    #     "simil_variables",
-                    #     "Vari\u00E1veis a importar",
-                    #     choices = nomes_simil,
-                    #     selected = simil_selected,
-                    #     multiple = TRUE)
-                    #   
-                    # )
+                    )
                   )
                   
                 ),
@@ -556,74 +478,74 @@ app_ui <- function(request) {
             
             shiny::fluidRow(
               
-              shinydashboardPlus::boxPlus(
-                title = "Estat\u00EDstica Descritiva",
-                status = "primary",
-                width = 12,
-                closable = FALSE,
-                collapsible = TRUE,
-                solidHeader = FALSE,
-                collapsed = TRUE,
-                enable_sidebar = TRUE,
-                sidebar_start_open = FALSE,
-                sidebar_width = 35,
-                #sidebar_background = "#c4c4c4",
-                sidebar_content = shiny::tagList(
-                  
-                  
-                  shinyWidgets::pickerInput(
-                    "DE_descriptive_table_show",
-                    "Visualizar nesse painel:",
-                    
-                    choices = c(
-                      "Vari\u00E1vel",
-                      "Tipo", 
-                      "Valores Faltantes", 
-                      "Taxa de Completos", 
-                      "Vari\u00E1veis Texto", 
-                      "Vari\u00E1veis Data", 
-                      "Vari\u00E1veis Data/Hora", 
-                      "Vari\u00E1veis Fator", 
-                      "Vari\u00E1veis L\u00F3gicas", 
-                      "Vari\u00E1veis Num\u00E9ricas"),
-                    
-                    selected = c(
-                      "Vari\u00E1vel",
-                      "Tipo", 
-                      "Valores Faltantes", 
-                      "Taxa de Completos"),
-                    
-                    multiple = TRUE,
-                    width = "100%",
-                    
-                    options = shinyWidgets::pickerOptions(
-                      actionsBox = TRUE,
-                      deselectAllText = "Nenhuma",
-                      header = "Informa\u00E7\u00F5es a Visualizar:",
-                      noneSelectedText = "Nada Selecionado",
-                      selectAllText = "Todas",
-                      selectedTextFormat = "count",
-                      maxOptions = NULL,
-                      maxOptionsText = NULL,
-                      multipleSeparator = ", "
-                    )
-                    # ,
-                    # 
-                    # choicesOpt = list(
-                    #   
-                    #   content = c(
-                    #     "pppppppppppooooooooooooooo") %>% 
-                    #     format_choices(3)
-                    # )
-                  )
-                ),
-                
-                shiny::tags$div(
-                  style = 'overflow-x: auto; overflow-y: auto; min-height: 300px',
-                  
-                  DT::dataTableOutput("DE_descriptive_table") 
-                )
-              )
+               #shinydashboardPlus::boxPlus(
+                # title = "Estat\u00EDstica Descritiva",
+                # status = "primary",
+                # width = 12,
+                # closable = FALSE,
+                # collapsible = TRUE,
+                # solidHeader = FALSE,
+                # collapsed = TRUE,
+                # enable_sidebar = TRUE,
+                # sidebar_start_open = FALSE,
+                # sidebar_width = 35,
+                # #sidebar_background = "#c4c4c4",
+                # sidebar_content = shiny::tagList(
+                #   
+                #   
+                #   shinyWidgets::pickerInput(
+                #     "DE_descriptive_table_show",
+                #     "Visualizar nesse painel:",
+                #     
+                #     choices = c(
+                #       "Vari\u00E1vel",
+                #       "Tipo", 
+                #       "Valores Faltantes", 
+                #       "Taxa de Completos", 
+                #       "Vari\u00E1veis Texto", 
+                #       "Vari\u00E1veis Data", 
+                #       "Vari\u00E1veis Data/Hora", 
+                #       "Vari\u00E1veis Fator", 
+                #       "Vari\u00E1veis L\u00F3gicas", 
+                #       "Vari\u00E1veis Num\u00E9ricas"),
+                #     
+                #     selected = c(
+                #       "Vari\u00E1vel",
+                #       "Tipo", 
+                #       "Valores Faltantes", 
+                #       "Taxa de Completos"),
+                #     
+                #     multiple = TRUE,
+                #     width = "100%",
+                #     
+                #     options = shinyWidgets::pickerOptions(
+                #       actionsBox = TRUE,
+                #       deselectAllText = "Nenhuma",
+                #       header = "Informa\u00E7\u00F5es a Visualizar:",
+                #       noneSelectedText = "Nada Selecionado",
+                #       selectAllText = "Todas",
+                #       selectedTextFormat = "count",
+                #       maxOptions = NULL,
+                #       maxOptionsText = NULL,
+                #       multipleSeparator = ", "
+                #     )
+                #     # ,
+                #     # 
+                #     # choicesOpt = list(
+                #     #   
+                #     #   content = c(
+                #     #     "pppppppppppooooooooooooooo") %>% 
+                #     #     format_choices(3)
+                #     # )
+                #   )
+                # ),
+                # 
+                # shiny::tags$div(
+                #   style = 'overflow-x: auto; overflow-y: auto; min-height: 300px',
+                #   
+                #   DT::dataTableOutput("DE_descriptive_table") 
+                # )
+              #)
             ),
             
             
@@ -3615,21 +3537,22 @@ app_ui <- function(request) {
                 label = "Salvar em .rds",
                 style = "width:100%;")
               
-            ),
-            
-            shinydashboard::box(
-              title = "Exportar Relat\u00F3rio HTML",
-              width = 12,
-              status = "primary",
-              collapsible = FALSE,
-              collapsed = FALSE,
-              
-              shiny::downloadButton(
-                outputId = "salvar_em_html",
-                label = "Salvar em .html",
-                style = "width:100%;")
-              
             )
+            # ,
+            # 
+            # shinydashboard::box(
+            #   title = "Exportar Relat\u00F3rio HTML",
+            #   width = 12,
+            #   status = "primary",
+            #   collapsible = FALSE,
+            #   collapsed = FALSE,
+            #   
+            #   shiny::downloadButton(
+            #     outputId = "salvar_em_html",
+            #     label = "Salvar em .html",
+            #     style = "width:100%;")
+            #   
+            # )
             
             # ,shinydashboard::box(
             #   title = "Exportar como Arquivo Excel",
@@ -4439,6 +4362,7 @@ app_ui <- function(request) {
 #' resources inside the Shiny application. 
 #' 
 #' @import shiny
+#' @import shinyBS
 #' @importFrom golem add_resource_path activate_js favicon bundle_resources
 #' @noRd
 golem_add_external_resources <- function(){

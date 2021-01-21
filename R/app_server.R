@@ -50,10 +50,10 @@ app_server <- function( input, output, session ) {
     
     
     
-    is_simil <- stringr::str_detect(input$file_path$name, "Dados_Simil_GIHAB-")
+    is_pre_config <- FALSE#stringr::str_detect(input$file_path$name, "")
     
     csv_skip <- input$csv_config_skip_lines
-    if (is_simil) {csv_skip <- 2 }
+    if (is_pre_config) {csv_skip <- 2 }
     
     
     
@@ -73,14 +73,14 @@ app_server <- function( input, output, session ) {
       
       check_encoding(session) %>% 
       
-      check_prepare_simil(session, 
-                          is_simil, 
-                          input$simil_variables,
-                          input$simil_peca, 
-                          input$simil_tipologia,
-                          input$simil_intervalo_data[1],
-                          input$simil_intervalo_data[2],
-                          input$simil_excluir_sem_data_final
+      check_prepare_pre_config(session, 
+                          is_pre_config, 
+                          input$pre_config_variables,
+                          input$pre_config_peca, 
+                          input$pre_config_tipologia,
+                          input$pre_config_intervalo_data[1],
+                          input$pre_config_intervalo_data[2],
+                          input$pre_config_excluir_sem_data_final
       ) %>% 
       
       check_data(session) %>% 
@@ -186,7 +186,7 @@ app_server <- function( input, output, session ) {
      
       
       req(any(!prop$obs_disabled))
-      
+      browser()
       df_skim <- df[!prop$obs_disabled, , drop = FALSE] %>% skim_to_table()
       
       num <- vapply(df_skim, is.numeric, logical(1))
@@ -3228,7 +3228,6 @@ app_server <- function( input, output, session ) {
     ignoreNULL = FALSE,
     ignoreInit = TRUE, {
       shiny::req(data$main)
-      
       df <- data$main
       
       selected <- selected_from_2d()

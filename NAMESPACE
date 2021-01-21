@@ -3,6 +3,7 @@
 export(iniciar_geobox)
 export(run_app)
 import(shiny)
+import(shinyBS)
 importFrom(config,get)
 importFrom(dplyr,`%>%`)
 importFrom(golem,activate_js)
