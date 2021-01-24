@@ -28,10 +28,10 @@ rhub::check_for_cran()
 # git remote add origin https://github.com/brunorzm/geoboxr
 # git push -u origin master
 
- remove.packages("geoboxr")
+ remove.packages("geobox")
  remotes::install_github("brunorzm/geobox")
  library(geobox)
- geoboxr()
+ geobox()
 
 # para sobrescrever: git push -f origin master 
 
