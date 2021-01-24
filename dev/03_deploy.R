@@ -29,8 +29,8 @@ rhub::check_for_cran()
 # git push -u origin master
 
  remove.packages("geoboxr")
- remotes::install_github("brunorzm/geoboxr")
- library(geoboxr)
+ remotes::install_github("brunorzm/geobox")
+ library(geobox)
  geoboxr()
 
 # para sobrescrever: git push -f origin master 
