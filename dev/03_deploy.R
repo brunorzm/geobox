@@ -29,6 +29,8 @@ rhub::check_for_cran()
 # git push -u origin master
 
 
+# para sobrescrever: git push -f origin master 
+
 # Deploy
 
 ## RStudio ----

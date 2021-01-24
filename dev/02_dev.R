@@ -44,7 +44,7 @@ usethis::use_test( "app" )
 # Documentation
 
 ## Vignette ----
-usethis::use_vignette("geobox")
+usethis::use_vignette("geoboxr")
 devtools::build_vignettes()
 
 ## Code coverage ----

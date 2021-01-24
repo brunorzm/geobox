@@ -17,7 +17,7 @@ app_ui <- function(request) {
       # header ------------------------------------------------------------------
       
       header = shinydashboardPlus::dashboardHeaderPlus(
-        title = "GEOBOX",
+        title = "GEOBOXr",
         enable_rightsidebar = TRUE,
         rightSidebarIcon = "gears"
       ),
@@ -110,7 +110,16 @@ app_ui <- function(request) {
             text = "Salvar/Exportar",
             icon = shiny::icon("rocket"),
             tabName = "export_data"
-          )#,
+          ),
+          
+          shiny::br(),
+          shiny::hr(),
+          
+         shiny::tagList("Contato:", 
+                        a("geoboxr@gmail.com", 
+                          href = "mailto:geoboxr@gmail.com"))
+          
+          
           
           # 
           # shinydashboard::menuItem(
@@ -2058,7 +2067,7 @@ app_ui <- function(request) {
                     
                     shiny::br(),
                     
-                    shiny::helpText("Insira um arquivo que tenha sido criado previamente nessa plataforma de modelagem urbana. Seu formato deve ser do tipo .rds e ter sido salvo por meio da Exporta\u00E7\u00E3o da Modelagem Urbana (Arquivo Espacial Geobox)"),
+                    shiny::helpText("Insira um arquivo que tenha sido criado previamente nessa plataforma de modelagem urbana. Seu formato deve ser do tipo .rds e ter sido salvo por meio da Exporta\u00E7\u00E3o da Modelagem Urbana (Arquivo Espacial GEOBOXr)"),
                     
                     shiny::fileInput(
                       "insert_geo_influence_rds",
@@ -2099,7 +2108,7 @@ app_ui <- function(request) {
                     shiny::h4("Exportar como:", align = "center"),
                     
                     shiny::hr(),
-                    shiny::h4("Arquivo Espacial Geobox"),
+                    shiny::h4("Arquivo Espacial GEOBOXr"),
                     
                     shiny::downloadButton(
                       "download_geo_influence_rds",
@@ -4375,7 +4384,7 @@ golem_add_external_resources <- function(){
     favicon(),
     bundle_resources(
       path = app_sys('app/www'),
-      app_title = 'geobox'
+      app_title = 'geoboxr'
     )
     # Add here other external resources
     # for example, you can add shinyalert::useShinyalert() 
