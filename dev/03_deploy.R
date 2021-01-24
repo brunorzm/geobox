@@ -25,7 +25,7 @@ rhub::check_for_cran()
 # git add .
 # git commit --no-verify
 # digita uma descricao, da esc, e digita :wq
-# git remote add origin https://github.com/brunorzm/geobox
+# git remote add origin https://github.com/brunorzm/geoboxr
 # git push -u origin master
 
 

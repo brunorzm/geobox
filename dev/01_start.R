@@ -14,7 +14,7 @@
 ## Fill the DESCRIPTION ----
 ## Add meta data about your application
 golem::fill_desc(
-  pkg_name = "geoboxr", # The Name of the package containing the App 
+  pkg_name = "geobox", # The Name of the package containing the App 
   pkg_title = "geoboxr - Reactive Regression Geo-Modelling", # The Title of the package containing the App 
   pkg_description = "Reactive Regression Modelling. Spatial Analysis Included.", # The Description of the package containing the App 
   author_first_name = "Bruno", # Your First Name
