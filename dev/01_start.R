@@ -15,12 +15,12 @@
 ## Add meta data about your application
 golem::fill_desc(
   pkg_name = "geobox", # The Name of the package containing the App 
-  pkg_title = "geoboxr - Reactive Regression Geo-Modelling", # The Title of the package containing the App 
+  pkg_title = "geobox - Reactive Regression Geo-Modelling", # The Title of the package containing the App 
   pkg_description = "Reactive Regression Modelling. Spatial Analysis Included.", # The Description of the package containing the App 
   author_first_name = "Bruno", # Your First Name
   author_last_name = "Rezende", # Your Last Name
   author_email = "geoboxr@gmail.com", # Your Email
-  repo_url = "https://github.com/brunorzm/geoboxr" # The URL of the GitHub Repo (optional) 
+  repo_url = "https://github.com/brunorzm/geobox" # The URL of the GitHub Repo (optional) 
 )     
 
 ## Set {golem} options ----
@@ -47,7 +47,7 @@ golem::use_recommended_deps()
 ## Favicon ----
 # If you want to change the favicon (default is golem's one)
 golem::remove_favicon()
-golem::use_favicon(path = "inst\\app\\www\\geoboxr.ico") # path = "path/to/ico". Can be an online file. 
+golem::use_favicon(path = "inst\\app\\www\\geobox.ico") # path = "path/to/ico". Can be an online file. 
 
 ## Add helper functions ----
 golem::use_utils_ui()
