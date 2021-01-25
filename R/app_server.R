@@ -6811,7 +6811,7 @@ output$tabela_micro <- DT::renderDataTable({
   # EX - EXPORTAR ARQUIVO ---------------------------------------------------
   
   output$salvar_em_rds <- downloadHandler(
-    filename = "modelo.rds",
+    filename = function(){"modelo.rds"},
     content = function(file) {
       
       
@@ -6851,25 +6851,25 @@ output$tabela_micro <- DT::renderDataTable({
   
   
   # output$salvar_em_html <- downloadHandler(
-  #   
-  #   filename = "relatorio.html",
+  # 
+  #   filename = function() {"relatorio.html"},
   #   content = function(file) {
-  #     
-  #     
-  #     
+  # 
+  # 
+  # 
   #     tempReport <- file.path(tempdir(), "relatorio.Rmd")
   #     padrao <- "www/relatorio.Rmd"
   #     file.copy(padrao, tempReport, overwrite = TRUE)
-  #     
-  #     
+  # 
+  # 
   #     model_check <- check_model(central$prop, input$auto_atualizar)
-  #     
-  #     
+  # 
+  # 
   #     params <- list(rzm = central$rzm,
   #                    prop = central$prop,
   #                    model = if(model_check) {  model() } else {NA} ,
   #                    metrics = if(model_check) {  metrics() } else {NA})
-  #     
+  # 
   #     # Knit the document, passing in the `params` list, and eval it in a
   #     # child of the global environment (this isolates the code in the document
   #     # from the code in this app).

@@ -310,25 +310,17 @@ check_prepare_pre_config <- function(df,
   
   
   
-  if (shiny::isTruthy(pre_config_peca)) {
-    
-    df <- df %>% dplyr::filter_at("Pe\u00E7a T\u00E9cnica",  dplyr::any_vars(. %in% pre_config_peca))
-    
-    
-    
-  }
-  
-  # FIltro de Tipologia
+ 
   if (shiny::isTruthy(pre_config_tipologia)) {
     
-    df <- df %>% dplyr::filter_at("Im\u00F3veis",  dplyr::any_vars(. %in% pre_config_tipologia))
+    df <- df %>% dplyr::filter_at("",  dplyr::any_vars(. %in% pre_config_tipologia))
     
     
   }
   
   
   
-  # FIltrod e Data
+  
   data_finalizacao <- df[["Data Final"]] %>% lubridate::dmy_hms()
   
   date_test <- data_finalizacao >= data_inicio & data_finalizacao <= data_fim

@@ -3562,12 +3562,12 @@ app_ui <- function(request) {
             #   status = "primary",
             #   collapsible = FALSE,
             #   collapsed = FALSE,
-            #   
+            # 
             #   shiny::downloadButton(
             #     outputId = "salvar_em_html",
             #     label = "Salvar em .html",
             #     style = "width:100%;")
-            #   
+            # 
             # )
             
             # ,shinydashboard::box(
