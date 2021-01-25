@@ -3346,20 +3346,20 @@ app_server <- function( input, output, session ) {
   # base principal
   observeEvent(MO_enabling$principal(), ignoreInit = TRUE, {
     
-   # prop$obs_disabled <- MO_enabling$principal()
+    prop$obs_disabled <- MO_enabling$principal()
     
-    indexx <- MO_enabling$principal()
-    
-    
-    df <- filter_prepare(data$main, 
-                         index = indexx, 
-                         action = "disable_obs_only", 
-                         vars = NULL, 
-                         oper_group = "filter_data")
-    
-    
-    var <- attr(df, "act_on_var")
-    data_update_reload(df, data, prop, var)
+    # indexx <- MO_enabling$principal()
+    # 
+    # 
+    # df <- filter_prepare(data$main, 
+    #                      index = indexx, 
+    #                      action = "disable_obs_only", 
+    #                      vars = NULL, 
+    #                      oper_group = "filter_data")
+    # 
+    # 
+    # var <- attr(df, "act_on_var")
+    # data_update_reload(df, data, prop, var)
     
     
     

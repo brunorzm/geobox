@@ -124,7 +124,7 @@ app_ui <- function(request) {
           
          shiny::tagList("Contato:", 
                         a("geoboxr@gmail.com", 
-                          href = "mailto:geoboxr@gmail.com")),
+                          href = "mailto:geoboxr@gmail.com"))
           
           
           
@@ -149,7 +149,7 @@ app_ui <- function(request) {
           #   )
           # ),
           
-          shiny::actionButton("brow", "Acionar Browser", width = "100%")
+          #,shiny::actionButton("brow", "Acionar Browser", width = "100%")
           #checkboxInput("brow2", "Acionar Browser 2")
           
         )
