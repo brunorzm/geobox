@@ -802,7 +802,6 @@ data_update_reload <- function(new_data, data, prop, vars ) {
   ncol_new <- length(new_data)
   ncol_old <- length(data$main) 
   
-  
   if (!is.list(vars) & (ncol_new > ncol_old)) {
     #Adicao de variaveis
     # enquadram-se aqui:
@@ -906,8 +905,8 @@ data_update_reload <- function(new_data, data, prop, vars ) {
     # - Desabilitacao de dados
     
     # atualizar a prop$obs_disable
-    
     prop$obs_disabled[vars$indexes] <- TRUE
+    #DT::selectRows(DT::dataTableProxy("MO_data_panel"), selected = vars$indexes)
     # CRIAR O HABILITAR
     
     # atualizar as transformadas das numericas
@@ -927,6 +926,8 @@ data_update_reload <- function(new_data, data, prop, vars ) {
     # atualizar a prop$obs_disable
     prop$obs_disabled[vars$indexes] <- FALSE
     prop$obs_disabled[!vars$indexes] <- TRUE
+    
+    
     
     # CRIAR O HABILITAR
     
@@ -1898,9 +1899,7 @@ filter_data_group <- function(df,
                        con_convert_to, 
                        oper_group)
   
-  
   df
-  
 }
 not_null <- function(x) !is.null(x)
 turbo_E <- function(x)  Reduce(`&`, x)
@@ -2023,7 +2022,7 @@ filtering <- function(x,
 
 
 
-filter_prepare <- function (df, 
+filter_prepare <- function(df, 
                             index, 
                             action, 
                             vars = NULL, 
@@ -2113,7 +2112,7 @@ filter_prepare <- function (df,
       
     )
     
-  } else if(action == "convert_to") {
+  } else if (action == "convert_to") {
     #no caso do filtro espacial, esse caso nao chegara a ser atingido
     validate(need(any(index), "Nenhum dado satisfez as condi\u00E7\u00F5es especificadas"))
     
@@ -2136,7 +2135,6 @@ filter_prepare <- function (df,
   attr(df, "oper_group") <- oper_group
   # attr(df, "source_vars") <- primary_vars
   attr(df, "act_on_var") <- act_on_var
-  
   df
   
 }
@@ -4260,7 +4258,7 @@ city_map_data <- function(mapa,
   
   ## criar popup
   pop <- df %>% remove_geo() %>% create_popup_tb()
-  
+
   hab <- obs_disabled
   
   habilitados <- dplyr::case_when(

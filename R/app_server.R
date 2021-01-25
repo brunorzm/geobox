@@ -186,7 +186,7 @@ app_server <- function( input, output, session ) {
      
       
       req(any(!prop$obs_disabled))
-      browser()
+      #browser()
       df_skim <- df[!prop$obs_disabled, , drop = FALSE] %>% skim_to_table()
       
       num <- vapply(df_skim, is.numeric, logical(1))
@@ -1120,13 +1120,13 @@ app_server <- function( input, output, session ) {
   
   observeEvent(input$ED_enable_all, {
     
-    DT::selectRows(DT::dataTableProxy("explo_datatable"), selected = NULL)
+    #DT::selectRows(DT::dataTableProxy("explo_datatable"), selected = NULL)
     
   })
   
   observeEvent(input$ED_disable_all, {
     
-    DT::selectRows(DT::dataTableProxy("explo_datatable"), selected = seq_len(NROW(data$main)))
+    #DT::selectRows(DT::dataTableProxy("explo_datatable"), selected = seq_len(NROW(data$main)))
     
   })
   
@@ -1143,7 +1143,6 @@ app_server <- function( input, output, session ) {
     is_spatial <- inherits(data$main, "sf")
     
     shiny::validate(shiny::need(is_spatial, "A base de dados inserida n\u00E3o \u00E9 georreferenciada"))
-    
     data$main
     
   })
@@ -1168,6 +1167,7 @@ app_server <- function( input, output, session ) {
       
       
       city_map(data$main)  %>% 
+        
         city_map_data(spatial_data(), 
                       prop$obs_disabled,
                       cat = NULL, 
@@ -1175,6 +1175,7 @@ app_server <- function( input, output, session ) {
                       opacity_fill = input$config_mapa_point_opacity_inside, 
                       size = input$config_mapa_point_radius
         ) %>% 
+        
         city_map_influence(prop$geo_influence, "Set3") %>%
         city_map_influence(prop$geo_model, "Set2") %>%
         city_map_influence(prop$geo_shp, "Set1") %>% 
@@ -1197,11 +1198,11 @@ app_server <- function( input, output, session ) {
   
   # atualizacao dos dados habilitados ou nao
   shiny::observe({
-    
+   
     proxy_city_map %>% 
       city_map_data(
         spatial_data_jit(), 
-        prop$obs_disabled,
+        shiny::isolate(prop$obs_disabled),
         cat = NULL, 
         opacity_border = input$config_mapa_point_opacity_border, 
         opacity_fill = input$config_mapa_point_opacity_inside, 
@@ -2437,7 +2438,7 @@ app_server <- function( input, output, session ) {
     
     common <- sf::st_intersection(
       df %>% sf::st_transform(3857), 
-      region%>% sf::st_transform(3857))
+      region %>% sf::st_transform(3857))
     
     n_elements <- NROW(common)
     
@@ -2452,7 +2453,6 @@ app_server <- function( input, output, session ) {
     #   validate(need(n_elements > 0, "Nenhum elemento encontrado. Opera\u00E7\u00E3o Cancelada!"))
     #   
     # }
-    
     
     if (n_elements > 0) {
       
@@ -2502,7 +2502,7 @@ app_server <- function( input, output, session ) {
     
   })
   
-  observeEvent(input$CMD_disable_all, {
+  observeEvent(input$CM_disable_all, {
     
     DT::selectRows(DT::dataTableProxy("explo_datatable"), selected = seq_len(NROW(data$main)))
     
@@ -3346,7 +3346,22 @@ app_server <- function( input, output, session ) {
   # base principal
   observeEvent(MO_enabling$principal(), ignoreInit = TRUE, {
     
-    prop$obs_disabled <- MO_enabling$principal()
+   # prop$obs_disabled <- MO_enabling$principal()
+    
+    indexx <- MO_enabling$principal()
+    
+    
+    df <- filter_prepare(data$main, 
+                         index = indexx, 
+                         action = "disable_obs_only", 
+                         vars = NULL, 
+                         oper_group = "filter_data")
+    
+    
+    var <- attr(df, "act_on_var")
+    data_update_reload(df, data, prop, var)
+    
+    
     
   })
   
@@ -3365,7 +3380,21 @@ app_server <- function( input, output, session ) {
   
   observeEvent(input$ED_enable_all, {
     
-    prop$obs_disabled[] <- FALSE
+   # prop$obs_disabled[] <- FALSE
+    
+    indexx <- !logical(length(prop$obs_disabled) )
+    
+    
+    df <- filter_prepare(data$main, 
+                         index = indexx, 
+                         action = "enable_obs_only", 
+                         vars = NULL, 
+                         oper_group = "filter_data")
+    
+    
+    var <- attr(df, "act_on_var")
+    data_update_reload(df, data, prop, vars = var)
+    
     
     
     shiny::showNotification(
@@ -3379,7 +3408,20 @@ app_server <- function( input, output, session ) {
   
   observeEvent(input$ED_disable_all, {
     
-    prop$obs_disabled[] <- TRUE
+   # prop$obs_disabled[] <- TRUE
+    
+    indexx <- !logical(length(prop$obs_disabled) )
+    
+    
+    df <- filter_prepare(data$main, 
+                         index = indexx, 
+                         action = "disable_obs_only", 
+                         vars = NULL, 
+                         oper_group = "filter_data")
+    
+    
+    var <- attr(df, "act_on_var")
+    data_update_reload(df, data, prop, var)
     
     shiny::showNotification(
       ui = "Todos os dados da Modelagem foram Desabilitados",
@@ -3394,7 +3436,22 @@ app_server <- function( input, output, session ) {
   
   shiny::observeEvent(input$CM_enable_all, {
     
-    prop$obs_disabled[] <- FALSE
+    #prop$obs_disabled[] <- FALSE
+    
+    indexx <- !logical(length(prop$obs_disabled) )
+    
+    
+    df <- filter_prepare(data$main, 
+                         index = indexx, 
+                         action = "enable_obs_only", 
+                         vars = NULL, 
+                         oper_group = "filter_data")
+    
+    
+    var <- attr(df, "act_on_var")
+    data_update_reload(df, data, prop, vars = var)
+    
+    
     
     shiny::showNotification(
       ui = "Todos os dados da Modelagem foram Habilitados",
@@ -3407,7 +3464,22 @@ app_server <- function( input, output, session ) {
   
   shiny::observeEvent(input$CM_disable_all, {
     
-    prop$obs_disabled[] <- TRUE
+   # prop$obs_disabled[] <- TRUE
+    
+    indexx <- !logical(length(prop$obs_disabled) )
+    
+    
+    df <- filter_prepare(data$main, 
+                         index = indexx, 
+                         action = "disable_obs_only", 
+                         vars = NULL, 
+                         oper_group = "filter_data")
+    
+    
+    var <- attr(df, "act_on_var")
+    data_update_reload(df, data, prop, var)
+    
+    
     
     shiny::showNotification(
       ui = "Todos os dados da Modelagem foram Desabilitados",
@@ -4243,12 +4315,12 @@ app_server <- function( input, output, session ) {
         
         shinydashboardPlus::descriptionBlock(
           number = "Var\u00e1veis Consideradas", 
-          number_color = "blue", 
+          numberColor = "blue", 
           #number_icon = "fa fa-caret-down",
           header = n_var_consideradas(), 
           text =  paste("/", n_var_total()), 
-          right_border = TRUE,
-          margin_bottom = TRUE
+          rightBorder = TRUE,
+          marginBottom  = TRUE
         )
       ),
       
@@ -4257,12 +4329,12 @@ app_server <- function( input, output, session ) {
         
         shinydashboardPlus::descriptionBlock(
           number = "Dados Considerados", 
-          number_color = "blue", 
+          numberColor = "blue", 
           #number_icon = "fa fa-caret-down",
           header = n_dados_considerados(), 
           text = paste("/", NROW(data$main)), 
-          right_border = TRUE,
-          margin_bottom = TRUE
+          rightBorder = TRUE,
+          marginBottom = TRUE
         )
       ),
       
@@ -4271,12 +4343,12 @@ app_server <- function( input, output, session ) {
         
         shinydashboardPlus::descriptionBlock(
           number = "F-Snedecor" , 
-          number_color = "blue", 
+          numberColor = "blue", 
           #number_icon = "fa fa-caret-down",
           header = paste0("Sig: ", f_p_value() %>% round(3), "%"), 
           text =  paste0("F: ", f_calc() %>% round(3)), 
-          right_border = TRUE,
-          margin_bottom = TRUE
+          rightBorder = TRUE,
+          marginBottom = TRUE
         )
       ),
       
@@ -4285,12 +4357,12 @@ app_server <- function( input, output, session ) {
         
         shinydashboardPlus::descriptionBlock(
           number = "Desvio padr\u00e3o", 
-          number_color = "blue", 
+          numberColor = "blue", 
           #number_icon = "fa fa-caret-down",
           header = paste("Mod.", residuals_sd_modelagem() %>% round(3)), 
           text = paste("Estim.", residuals_sd_estimativa() %>% round(3)), 
-          right_border = FALSE,
-          margin_bottom = TRUE
+          rightBorder = FALSE,
+          marginBottom = TRUE
         )
         
       )

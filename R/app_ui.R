@@ -17,7 +17,7 @@ app_ui <- function(request) {
       # header ------------------------------------------------------------------
       
       header = shinydashboardPlus::dashboardHeaderPlus(
-        title = "",
+        title = "GEOBOX",
         enable_rightsidebar = TRUE,
         rightSidebarIcon = "gears"
       ),
@@ -32,6 +32,8 @@ app_ui <- function(request) {
             text = "Base de Dados",
             #tabName = "studio",
             icon = shiny::icon("server"),
+            startExpanded = TRUE,
+            
             
             shinydashboard::menuSubItem(
               text = "Inserir Dados",
@@ -58,6 +60,7 @@ app_ui <- function(request) {
             text = "Explorar Dados",
             #tabName = "studio",
             icon = shiny::icon("search"),
+            startExpanded = TRUE,
             
             shinydashboard::menuSubItem(
               text = "Tabela Explorat\u00F3ria",
@@ -77,6 +80,8 @@ app_ui <- function(request) {
             text = "Est\u00FAdio de Modelagem",
             #tabName = "studio",
             icon = shiny::icon("cog"),
+            startExpanded = TRUE,
+            
             
             shinydashboard::menuSubItem(
               text = "Regress\u00E3o Linear",
@@ -90,6 +95,8 @@ app_ui <- function(request) {
             text = "Calcular",
             #tabName = "studio",
             icon = shiny::icon("money-bill-alt"),
+            startExpanded = TRUE,
+            
             
             shinydashboard::menuSubItem(
               text = "Unico Im\u00F3vel",
@@ -117,7 +124,7 @@ app_ui <- function(request) {
           
          shiny::tagList("Contato:", 
                         a("geoboxr@gmail.com", 
-                          href = "mailto:geoboxr@gmail.com"))
+                          href = "mailto:geoboxr@gmail.com")),
           
           
           
@@ -142,7 +149,7 @@ app_ui <- function(request) {
           #   )
           # ),
           
-          # shiny::actionButton("brow", "Acionar Browser", width = "100%")
+          shiny::actionButton("brow", "Acionar Browser", width = "100%")
           #checkboxInput("brow2", "Acionar Browser 2")
           
         )
@@ -697,7 +704,7 @@ app_ui <- function(request) {
               shinydashboardPlus::boxPlus(
                 title = "Tratamento e Manipula\u00E7\u00E3o",
                 collapsible = TRUE,
-                collapsed = TRUE,
+                collapsed = FALSE,
                 closable = FALSE,
                 width = 12,
                 status = "primary",
@@ -4355,7 +4362,7 @@ app_ui <- function(request) {
         ) #fim do rightSidebarTabContent
         
       ),
-      title = " - Reactive Regression Modelling"
+      title = "GEOBOX - Reactive Regression Modelling"
     )
     
     
@@ -4384,7 +4391,7 @@ golem_add_external_resources <- function(){
     favicon(),
     bundle_resources(
       path = app_sys('app/www'),
-      app_title = 'geoboxr'
+      app_title = 'geobox'
     )
     # Add here other external resources
     # for example, you can add shinyalert::useShinyalert() 
