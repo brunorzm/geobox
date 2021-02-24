@@ -3771,14 +3771,17 @@ app_server <- function( input, output, session ) {
   output$tempo_estimado_calc <-  shiny::renderText({
     input$MO_trns_for_search_save
     
-    
+    isolate({
     
     var_enabled <- input$model_hab_calc
     transf_for_test <- prop$var_trns_for_search[var_enabled]
+    
     shiny::req(transf_for_test)
+    
     df_select() %>% shiny::req()
-    isolate({
-      p <- bench::mark(a ={
+    
+    
+      p <- bench::mark(a = {
         faster_reg(df_select() %>% as.matrix(), 
                    var_dep = prop$var_dependent)
         

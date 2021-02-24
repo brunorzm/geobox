@@ -8,6 +8,10 @@
 geobox <- function(
   ...
 ) {
+  
+  options(shiny.maxRequestSize=5000*1024^2)
+  
+  
   with_golem_options(
     app = shinyApp(
       ui = app_ui, 
